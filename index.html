@@ -30,10 +30,22 @@
         transition: 0.3s;
     }
 
-    .box:hover {
-        background-color: #333;
-        transform: scale(1.05);
-    }
+    .navbar {
+    background-color: #000;
+    padding: 15px;
+    font-size: 20px;
+}
+footer {
+    margin-top: 50px;
+    padding: 20px;
+    background-color: #000;
+}
+.box:hover {
+    background-color: #333;
+    transform: scale(1.05);
+    box-shadow: 0 0 20px #00ffcc;
+}
+
 </style>    
 
 </head>
@@ -53,12 +65,19 @@
 <div class="box" onclick="openPage('truthdare.html')">
     🎮 Truth or Dare
 </div>
+<div class="navbar">
+    <h2>🚀 My Tools</h2>
+</div>
     
     <script>
         function openPage(page) {
             window.location.href = page;
         }
     </script>
+
+<footer>
+    <p>Made by me 😎 | More tools coming soon</p>
+</footer>
 
 </body>
 </html>
