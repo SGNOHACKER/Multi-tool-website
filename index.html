@@ -2,83 +2,46 @@
 <html>
 <head>
     <title>My Tools Website</title>
-    <p>Simple tools made by me 🚀</p>
 
-<style>
-    body {
-        text-align: center;
-        font-family: Arial;
-        background: linear-gradient(135deg, #1a1a1a, #000);
-        color: white;
-    }
-
-    h1 {
-        margin-top: 30px;
-    }
-
-    .container {
-        margin-top: 50px;
-    }
-
-    .box {
-        margin: 20px;
-        padding: 30px;
-        border-radius: 15px;
-        background-color: #222;
-        display: inline-block;
-        cursor: pointer;
-        transition: 0.3s;
-    }
-
-    .navbar {
-    background-color: #000;
-    padding: 15px;
-    color: white;
-    text-align: center;
-}
-footer {
-    margin-top: 50px;
-    padding: 20px;y
-    background-color: #000;
-}
-.box:hover {
-    background-color: #333;
-    transform: scale(1.05);
-    box-shadow: 0 0 20px #00ffcc;
-}
-
-</style>    
-
+    <!-- Link CSS -->
+    <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
-    <div class="navbar">
-    <h2>🚀 My Tools</h2>
-</div>
+
+    <!-- NAVBAR -->
+    <nav>
+        <h2>🚀 My Tools</h2>
+        <a href="#">Home</a>
+        <a href="#">Tools</a>
+    </nav>
 
     <h1>🚀 My Tools Website</h1>
+    <p>Simple tools made by me 🚀</p>
 
     <div class="container">
-    <div class="box" onclick="openPage('password.html')">
-        🔐 Password Generator
+        <div class="box" onclick="openPage('password.html')">
+            🔐 Password Generator
+        </div>
+
+        <div class="box" onclick="openPage('quiz.html')">
+            🧠 Quiz App
+        </div>
+
+        <div class="box" onclick="openPage('truthdare.html')">
+            🎮 Truth or Dare
+        </div>
     </div>
 
-    <div class="box" onclick="openPage('quiz.html')">
-        🧠 Quiz App
-    </div>
-</div>
-<div class="box" onclick="openPage('truthdare.html')">
-    🎮 Truth or Dare
-</div>
-    
     <script>
         function openPage(page) {
             window.location.href = page;
         }
     </script>
 
-<footer>
-    <p>Made by me 😎 | More tools coming soon</p>
-</footer>
+    <footer>
+        <p>Made by me 😎 | More tools coming soon</p>
+    </footer>
 
 </body>
 </html>
