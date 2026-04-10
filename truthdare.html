@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Truth or Dare</title>
+
+    <style>
+        body {
+            text-align: center;
+            font-family: Arial;
+            background-color: #111;
+            color: white;
+        }
+
+        button {
+            padding: 15px;
+            margin: 10px;
+            cursor: pointer;
+        }
+
+        #result {
+            margin-top: 20px;
+            font-size: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>🔥 Truth or Dare Game</h2>
+
+    <button onclick="getTruth()">Truth</button>
+    <button onclick="getDare()">Dare</button>
+
+    <div id="result"></div>
+
+    <script>
+        let truths = [
+            "What is your biggest fear?",
+            "Have you ever lied to your best friend?",
+            "What is your most embarrassing moment?",
+            "Who do you like secretly?",
+            "What is your biggest secret?"
+        ];
+
+        let dares = [
+            "Do 10 pushups",
+            "Sing a song loudly",
+            "Dance for 30 seconds",
+            "Say something funny",
+            "Act like a monkey for 20 seconds"
+        ];
+
+        function getTruth() {
+            let random = Math.floor(Math.random() * truths.length);
+            document.getElementById("result").innerText = truths[random];
+        }
+
+        function getDare() {
+            let random = Math.floor(Math.random() * dares.length);
+            document.getElementById("result").innerText = dares[random];
+        }
+    </script>
+
+</body>
+</html>
