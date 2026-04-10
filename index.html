@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My Tools Website</title>
+    <p>Simple tools made by me 🚀</p>
+
+<style>
+    body {
+        text-align: center;
+        font-family: Arial;
+        background: linear-gradient(135deg, #1a1a1a, #000);
+        color: white;
+    }
+
+    h1 {
+        margin-top: 30px;
+    }
+
+    .container {
+        margin-top: 50px;
+    }
+
+    .box {
+        margin: 20px;
+        padding: 30px;
+        border-radius: 15px;
+        background-color: #222;
+        display: inline-block;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+
+    .box:hover {
+        background-color: #333;
+        transform: scale(1.05);
+    }
+</style>    
+
+</head>
+<body>
+
+    <h1>🚀 My Tools Website</h1>
+
+    <div class="container">
+    <div class="box" onclick="openPage('password.html')">
+        🔐 Password Generator
+    </div>
+
+    <div class="box" onclick="openPage('quiz.html')">
+        🧠 Quiz App
+    </div>
+</div>
+    
+    <script>
+        function openPage(page) {
+            window.location.href = page;
+        }
+    </script>
+
+</body>
+</html>

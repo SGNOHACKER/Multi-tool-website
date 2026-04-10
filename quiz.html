@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Quiz App</title>
+
+    <style>
+    body {
+        background-color: #222;
+        color: white;
+        font-family: Arial;
+    }
+
+    button {
+        padding: 10px;
+        margin: 5px;
+        width: 200px;
+        cursor: pointer;
+    }
+</style>
+
+</head>
+<body style="text-align:center; font-family:Arial;">
+
+    <h2>Simple Quiz App 🧠</h2>
+     <h4 id="counter"></h4>
+    <h4 id="timer">Time Left: 10</h4>
+    <h3 id="question">Question will appear here</h3>
+
+    <button onclick="checkAnswer('A')" id="btnA"></button><br><br>
+    <button onclick="checkAnswer('B')" id="btnB"></button><br><br>
+    <button onclick="checkAnswer('C')" id="btnC"></button><br><br>
+    <button onclick="checkAnswer('D')" id="btnD"></button>
+
+    <h3 id="score"></h3>
+
+    <script>
+        let time = 10;
+let timerInterval;
+
+          let questions = [
+            {
+                q: "What is 2 + 2?",
+                A: "3",
+                B: "4",
+                C: "5",
+                D: "6",
+                correct: "B"
+            },
+            {
+                q: "Capital of India?",
+                A: "Mumbai",
+                B: "Delhi",
+                C: "Kolkata",
+                D: "Chennai",
+                correct: "B"
+            }
+        ];
+
+        let current = 0;
+        let score = 0;
+           
+             function loadQuestion() {
+    let q = questions[current];
+
+    document.getElementById("counter").innerText =
+        "Question " + (current + 1) + " of " + questions.length;
+
+    document.getElementById("question").innerText = q.q;
+    document.getElementById("btnA").innerText = q.A;
+    document.getElementById("btnB").innerText = q.B;
+    document.getElementById("btnC").innerText = q.C;
+    document.getElementById("btnD").innerText = q.D;
+
+    startTimer(); // 👈 ADD THIS
+}        
+
+     function startTimer() {
+    time = 10;
+
+    let timerElement = document.getElementById("timer");
+    if (timerElement) {
+        timerElement.innerText = "Time Left: " + time;
+    }
+
+    clearInterval(timerInterval);
+
+    timerInterval = setInterval(() => {
+        time--;
+
+        let timerElement = document.getElementById("timer");
+        if (timerElement) {
+            timerElement.innerText = "Time Left: " + time;
+        }
+
+        if (time === 0) {
+            clearInterval(timerInterval);
+            checkAnswer(""); // no answer = wrong
+        }
+    }, 1000);
+}  
+
+    clearInterval(timerInterval);
+
+     function checkAnswer(ans) {
+    let correct = questions[current].correct;
+
+    if (ans === correct) {
+        score++;
+        alert("✅ Correct!");
+    } else {
+        alert("❌ Wrong! Correct answer was: " + correct);
+    }
+
+    current++;
+
+    if (current < questions.length) {
+        loadQuestion();
+    } else {
+        document.body.innerHTML = `
+    <h2>Your Score: ${score}</h2>
+    <button onclick="location.reload()">Restart Quiz</button>
+`;        
+    
+}
+    }
+
+        loadQuestion();
+    </script>
+
+</body>
+</html>
