@@ -5,58 +5,156 @@
 
     <style>
         body {
-            text-align: center;
             font-family: Arial;
-            background-color: #111;
+            text-align: center;
+            background: radial-gradient(circle at top, #0f172a, #000);
             color: white;
+            padding: 20px;
+            animation: fadeIn 1s ease-in;
         }
 
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        h1 {
+            margin-bottom: 20px;
+        }
+
+        /* CARD */
+        .card {
+            background: rgba(30, 41, 59, 0.5);
+            backdrop-filter: blur(10px);
+            padding: 30px;
+            border-radius: 20px;
+            max-width: 400px;
+            margin: auto;
+            box-shadow: 0 0 20px rgba(0,0,0,0.5);
+            animation: slideUp 0.8s ease;
+        }
+
+        @keyframes slideUp {
+            from {
+                transform: translateY(40px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        /* BUTTONS */
         button {
-            padding: 15px;
+            padding: 15px 25px;
             margin: 10px;
+            font-size: 18px;
+            border: none;
+            border-radius: 12px;
             cursor: pointer;
+            transition: 0.3s;
         }
 
+        .truth {
+            background: #38bdf8;
+        }
+
+        .dare {
+            background: #f43f5e;
+        }
+
+        button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 15px white;
+        }
+
+        /* RESULT BOX */
         #result {
             margin-top: 20px;
             font-size: 20px;
+            min-height: 50px;
+            animation: fadeText 0.5s ease;
+        }
+
+        @keyframes fadeText {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* NEXT BUTTON */
+        .next {
+            background: #22c55e;
+            margin-top: 15px;
+        }
+
+        /* MOBILE */
+        @media (max-width: 600px) {
+            .card {
+                width: 90%;
+                padding: 20px;
+            }
+
+            button {
+                width: 80%;
+                font-size: 16px;
+            }
         }
     </style>
 </head>
+
 <body>
 
-    <h2>🔥 Truth or Dare Game</h2>
+    <h1>🎮 Truth or Dare</h1>
 
-    <button onclick="getTruth()">Truth</button>
-    <button onclick="getDare()">Dare</button>
+    <div class="card">
+        <button class="truth" onclick="getTruth()">Truth</button>
+        <button class="dare" onclick="getDare()">Dare</button>
 
-    <div id="result"></div>
+        <p id="result">Click Truth or Dare 😎</p>
+
+        <button class="next" onclick="next()">Next ➡️</button>
+    </div>
 
     <script>
         let truths = [
-            "What is your biggest fear?",
-            "Have you ever lied to your best friend?",
-            "What is your most embarrassing moment?",
-            "Who do you like secretly?",
-            "What is your biggest secret?"
+            "Tumne last time kab jhoot bola?",
+            "Kisi par crush hai?",
+            "Sabse embarrassing moment kya tha?",
+            "Kya tumne kabhi cheating ki hai?",
+            "Kiska secret tum jaante ho?",
+            "What is the most embarrassing thing you’ve ever done on a date","If you could trade lives with anyone for a day who would it be","What is your biggest fear that you haven’t told anyone","What is the last lie you told to someone in this room","If you found a suitcase full of money what would you do","What is the most childish thing you still do","Who is your secret crush that no one knows about","What is the most expensive thing you have ever stolen","If you could be invisible for a day what would you do","What is the weirdest habit you have when you are alone","What is one thing you wish you could change about yourself","Have you ever ghosted someone and why","What is the most trouble you have ever been in at school or work","What is the most ridiculous reason you have ever broken up with someone","What is your biggest regret in life so far","If you could only eat one food for the rest of your life what would it be","What is the most awkward social situation you have ever been in","What is a secret you kept from your parents growing up","What is the meanest thing you have ever said to someone’s face","If you were stranded on a desert island who is the one person you would want with you","What is the most money you have ever spent on something useless","What is your biggest pet peeve","Have you ever snooped through someone else’s phone","What is the most embarrassing song on your playlist","What is your most unpopular opinion","If you could go back in time and change one thing what would it be","What is the first thing you would do if you won the lottery","What is the most illegal thing you have ever done","Who in this room do you think is the best looking","What is the longest you have gone without showering","What is your biggest insecurity","Have you ever pretended to be sick to get out of something","What is the most embarrassing thing your parents have caught you doing","If you had to marry one person in this room who would it be","What is a dream you have never told anyone","What is the most attractive quality a person can have","Have you ever cried during a movie and which one","What is the most cringe-worthy thing you have posted on social media","If you could meet any historical figure who would it be","What is the worst gift you have ever received","What is the most daring thing you have ever done","What is the one thing you can’t live without","Have you ever lied on your resume","What is the most annoying thing about the person to your left","If you could have any superpower what would it be","What is the most embarrassing nickname you have ever had","Have you ever cheated on a test","What is the last thing you searched for on your phone","What is the most spontaneous thing you have ever done","If you were a ghost who would you haunt first"
         ];
 
         let dares = [
-            "Do 10 pushups",
-            "Sing a song loudly",
-            "Dance for 30 seconds",
-            "Say something funny",
-            "Act like a monkey for 20 seconds"
+            "10 pushups karo 💪",
+            "Ek funny face bana ke photo bhejo 😂",
+            "1 minute dance karo 💃",
+            "Apne dost ko random call karo 📞",
+            "Apna last message loud padh ke sunao 📱",
+            "Do 10 pushups","Do 12 handstands","Eat a spoonful of hot sauce","Call a random contact and sing Happy Birthday","Text your crush I have a secret to tell you","Try to lick your elbow","Do your best chicken dance in the middle of the room","Let someone else post a status on your Facebook","Talk in an accent for the next 3 rounds","Drink a glass of water without using your hands","Do 20 jumping jacks","Try to touch your nose with your tongue","Wear your socks on your hands for the next 10 minutes","Mime what you did this morning","Balance a spoon on your nose for 30 seconds","Do a fashion walk across the room","Sing everything you say for the next 5 minutes","Try to juggle three random objects","Spin around 10 times and try to walk in a straight line","Draw a face on your hand and use it as a puppet","Do a plank for one minute","Tell a joke until someone laughs","Wear your clothes inside out","Try to whistle with crackers in your mouth","Do 15 squats","Stare at the person to your right without blinking for a minute","Bark like a dog every time someone says the","Let someone redo your hair","Pretend you are a cat for two minutes","Give a 2-minute speech on why pineapples belong on pizza","Dance with no music for one minute","Try to stand on one leg for two minutes","Make up a short rap about the person sitting next to you","Put as many marshmallows in your mouth as you can","Exchange a piece of clothing with the person to your left","Try to peel a banana with your feet","Act like a robot until your next turn","Do 5 burpees","Let the group look through your photo gallery for 30 seconds","Crawl across the floor like a baby","Repeat everything the person next to you says","Try to balance a book on your head while walking","Make a funny face and keep it for two minutes","Do 30 mountain climbers","Whisper everything you say for the next three turns","Impersonate a celebrity until someone guesses who it is","Do a bridge and hold it for 20 seconds","Try to make everyone in the room laugh in under a minute","Pretend to be a waiter and take everyone's snack order","Hold a mouthful of water while others try to make you laugh"
         ];
+
+        let lastType = "";
 
         function getTruth() {
             let random = Math.floor(Math.random() * truths.length);
             document.getElementById("result").innerText = truths[random];
+            lastType = "truth";
         }
 
         function getDare() {
             let random = Math.floor(Math.random() * dares.length);
             document.getElementById("result").innerText = dares[random];
+            lastType = "dare";
+        }
+
+        function next() {
+            if (lastType === "truth") {
+                getTruth();
+            } else if (lastType === "dare") {
+                getDare();
+            }
         }
     </script>
 

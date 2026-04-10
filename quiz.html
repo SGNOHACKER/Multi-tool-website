@@ -2,42 +2,157 @@
 <html>
 <head>
     <title>Quiz App</title>
-
+    <link rel="stylesheet" href="style.css">
     <style>
-    body {
-        background-color: #222;
-        color: white;
-        font-family: Arial;
-    }
+        .tool-container {
+            max-width: 600px;
+            margin: 60px auto;
+            padding: 40px;
+            background: rgba(30, 41, 59, 0.5);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            border: 1px solid rgba(255,255,255,0.1);
+            animation: slideUp 0.8s ease;
+        }
 
-    button {
-        padding: 10px;
-        margin: 5px;
-        width: 200px;
-        cursor: pointer;
-    }
-</style>
+        @keyframes slideUp {
+            from {
+                transform: translateY(30px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .quiz-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 30px;
+            padding: 15px;
+            background: rgba(0,0,0,0.3);
+            border-radius: 10px;
+        }
+
+        .quiz-header h4 {
+            margin: 0;
+            color: #94a3b8;
+        }
+
+        .question-box {
+            margin: 30px 0;
+            padding: 30px;
+            background: rgba(0,0,0,0.3);
+            border-radius: 15px;
+        }
+
+        .question-box h3 {
+            font-size: 22px;
+            margin-bottom: 20px;
+            color: white;
+        }
+
+        .quiz-btn {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 10px;
+            border: 1px solid rgba(255,255,255,0.2);
+            background: rgba(255,255,255,0.05);
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            transition: 0.3s;
+            text-align: left;
+        }
+
+        .quiz-btn:hover {
+            background: rgba(56, 189, 248, 0.2);
+            border-color: #38bdf8;
+            transform: translateX(10px);
+        }
+
+        .score-display {
+            text-align: center;
+            padding: 40px;
+        }
+
+        .score-display h2 {
+            font-size: 48px;
+            color: #38bdf8;
+            margin-bottom: 20px;
+        }
+
+        .btn-restart {
+            padding: 15px 30px;
+            border-radius: 10px;
+            border: none;
+            background: linear-gradient(135deg, #38bdf8, #818cf8);
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .btn-restart:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 30px #38bdf8;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 30px;
+            color: #38bdf8;
+            text-decoration: none;
+        }
+
+        .back-link:hover {
+            text-decoration: underline;
+        }
+    </style>
 
 </head>
-<body style="text-align:center; font-family:Arial;">
+<body>
 
-    <h2>Simple Quiz App 🧠</h2>
-     <h4 id="counter"></h4>
-    <h4 id="timer">Time Left: 10</h4>
-    <h3 id="question">Question will appear here</h3>
+    <!-- NAVBAR -->
+    <nav>
+        <h2>⚡ MultiTool</h2>
+        <div>
+            <a href="index.html">Home</a>
+            <a href="#">Tools</a>
+            <a href="#">About</a>
+        </div>
+    </nav>
 
-    <button onclick="checkAnswer('A')" id="btnA"></button><br><br>
-    <button onclick="checkAnswer('B')" id="btnB"></button><br><br>
-    <button onclick="checkAnswer('C')" id="btnC"></button><br><br>
-    <button onclick="checkAnswer('D')" id="btnD"></button>
+    <div class="tool-container" id="quizContainer">
+        <h1>🧠 Quiz App</h1>
+        
+        <div class="quiz-header">
+            <h4 id="counter">Question 1 of 5</h4>
+            <h4 id="timer">⏱️ Time: 10s</h4>
+        </div>
+        
+        <div class="question-box">
+            <h3 id="question">Loading question...</h3>
+        </div>
+        
+        <button class="quiz-btn" onclick="checkAnswer('A')" id="btnA">A. Option</button>
+        <button class="quiz-btn" onclick="checkAnswer('B')" id="btnB">B. Option</button>
+        <button class="quiz-btn" onclick="checkAnswer('C')" id="btnC">C. Option</button>
+        <button class="quiz-btn" onclick="checkAnswer('D')" id="btnD">D. Option</button>
 
-    <h3 id="score"></h3>
+        <div id="scoreArea"></div>
+        
+        <a href="index.html" class="back-link">← Back to Home</a>
+    </div>
 
     <script>
         let time = 10;
-let timerInterval;
+        let timerInterval;
 
-          let questions = [
+        let questions = [
             {
                 q: "What is 2 + 2?",
                 A: "3",
@@ -53,79 +168,119 @@ let timerInterval;
                 C: "Kolkata",
                 D: "Chennai",
                 correct: "B"
+            },
+            {
+                q: "What is the color of the sky?",
+                A: "Green",
+                B: "Blue",
+                C: "Red",
+                D: "Yellow",
+                correct: "B"
+            },
+            {
+                q: "How many days in a week?",
+                A: "5",
+                B: "6",
+                C: "7",
+                D: "8",
+                correct: "C"
+            },
+            {
+                q: "Which animal is known as the King of Jungle?",
+                A: "Tiger",
+                B: "Lion",
+                C: "Elephant",
+                D: "Giraffe",
+                correct: "B"
             }
         ];
 
         let current = 0;
         let score = 0;
-           
-             function loadQuestion() {
-    let q = questions[current];
+        
+        function loadQuestion() {
+            let q = questions[current];
 
-    document.getElementById("counter").innerText =
-        "Question " + (current + 1) + " of " + questions.length;
+            document.getElementById("counter").innerText = "Question " + (current + 1) + " of " + questions.length;
+            document.getElementById("question").innerText = q.q;
+            document.getElementById("btnA").innerText = "A. " + q.A;
+            document.getElementById("btnB").innerText = "B. " + q.B;
+            document.getElementById("btnC").innerText = "C. " + q.C;
+            document.getElementById("btnD").innerText = "D. " + q.D;
 
-    document.getElementById("question").innerText = q.q;
-    document.getElementById("btnA").innerText = q.A;
-    document.getElementById("btnB").innerText = q.B;
-    document.getElementById("btnC").innerText = q.C;
-    document.getElementById("btnD").innerText = q.D;
+            startTimer();
+        }        
 
-    startTimer(); // 👈 ADD THIS
-}        
+        function startTimer() {
+            time = 10;
+            
+            let timerElement = document.getElementById("timer");
+            if (timerElement) {
+                timerElement.innerText = "⏱️ Time: " + time + "s";
+            }
 
-     function startTimer() {
-    time = 10;
-
-    let timerElement = document.getElementById("timer");
-    if (timerElement) {
-        timerElement.innerText = "Time Left: " + time;
-    }
-
-    clearInterval(timerInterval);
-
-    timerInterval = setInterval(() => {
-        time--;
-
-        let timerElement = document.getElementById("timer");
-        if (timerElement) {
-            timerElement.innerText = "Time Left: " + time;
-        }
-
-        if (time === 0) {
             clearInterval(timerInterval);
-            checkAnswer(""); // no answer = wrong
+
+            timerInterval = setInterval(() => {
+                time--;
+
+                let timerElement = document.getElementById("timer");
+                if (timerElement) {
+                    timerElement.innerText = "⏱️ Time: " + time + "s";
+                }
+
+                if (time === 0) {
+                    clearInterval(timerInterval);
+                    checkAnswer("");
+                }
+            }, 1000);
+        }  
+
+        function checkAnswer(ans) {
+            clearInterval(timerInterval);
+            
+            let correct = questions[current].correct;
+
+            if (ans === correct) {
+                score++;
+                alert("✅ Correct!");
+            } else if (ans !== "") {
+                alert("❌ Wrong! Correct answer was: " + correct);
+            } else {
+                alert("⏰ Time's up!");
+            }
+
+            current++;
+
+            if (current < questions.length) {
+                loadQuestion();
+            } else {
+                showFinalScore();
+            }
         }
-    }, 1000);
-}  
 
-    clearInterval(timerInterval);
-
-     function checkAnswer(ans) {
-    let correct = questions[current].correct;
-
-    if (ans === correct) {
-        score++;
-        alert("✅ Correct!");
-    } else {
-        alert("❌ Wrong! Correct answer was: " + correct);
-    }
-
-    current++;
-
-    if (current < questions.length) {
-        loadQuestion();
-    } else {
-        document.body.innerHTML = `
-    <h2>Your Score: ${score}</h2>
-    <button onclick="location.reload()">Restart Quiz</button>
-`;        
-    
-}
-    }
+        function showFinalScore() {
+            let percentage = Math.round((score / questions.length) * 100);
+            let emoji = percentage >= 80 ? "🎉" : percentage >= 50 ? "👍" : "💪";
+            
+            document.getElementById("quizContainer").innerHTML = `
+                <div class="score-display">
+                    <h1>Quiz Complete!</h1>
+                    <h2>${score} / ${questions.length}</h2>
+                    <p style="color: #94a3b8; font-size: 18px;">You got ${percentage}% correct ${emoji}</p>
+                    <button class="btn-restart" onclick="location.reload()">🔄 Play Again</button>
+                    <br><br>
+                    <a href="index.html" class="back-link">← Back to Home</a>
+                </div>
+            `;
+        }
 
         loadQuestion();
     </script>
+
+    <footer>
+        <p>Made by me 😎 | More tools coming soon</p>
+    </footer>
 
 </body>
 </html>

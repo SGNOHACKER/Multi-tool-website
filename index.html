@@ -2,8 +2,6 @@
 <html>
 <head>
     <title>My Tools Website</title>
-
-    <!-- Link CSS -->
     <link rel="stylesheet" href="style.css">
 </head>
 
@@ -11,18 +9,25 @@
 
     <!-- NAVBAR -->
     <nav>
-        <h2>🚀 My Tools</h2>
-        <a href="#">Home</a>
-        <a href="#">Tools</a>
+        <h2>⚡ MultiTool</h2>
+        <div>
+            <a href="#">Home</a>
+            <a href="#">Tools</a>
+            <a href="#">About</a>
+        </div>
     </nav>
 
-    <h1>🚀 My Tools Website</h1>
-    <p>Simple tools made by me 🚀</p>
+    <!-- HERO SECTION -->
+    <section class="hero">
+        <h1>All-in-One Free Tools 🚀</h1>
+        <p>Simple, fast & useful tools made by me</p>
+    </section>
 
+    <!-- TOOLS -->
     <div class="container">
-        <div class="box" onclick="openPage('password.html')">
-            🔐 Password Generator
-        </div>
+        <a href="password.html">
+  <div class="box">🔐 Password Generator</div>
+</a>
 
         <div class="box" onclick="openPage('quiz.html')">
             🧠 Quiz App
@@ -35,8 +40,28 @@
 
     <script>
         function openPage(page) {
-            window.location.href = page;
-        }
+    window.location.href = page + "?v=" + Date.now();
+}
+
+    document.querySelectorAll(".box").forEach(box => {
+  box.addEventListener("click", function(e) {
+    let circle = document.createElement("span");
+    circle.classList.add("ripple");
+
+    this.appendChild(circle);
+
+    let x = e.clientX - this.offsetLeft;
+    let y = e.clientY - this.offsetTop;
+
+    circle.style.left = x + "px";
+    circle.style.top = y + "px";
+
+    setTimeout(() => {
+      circle.remove();
+    }, 500);
+  });
+});
+
     </script>
 
     <footer>
