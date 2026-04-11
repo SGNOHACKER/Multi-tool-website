@@ -11,7 +11,7 @@
     <link rel="icon" type="image/x-icon" href="favicon.ico">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 
@@ -42,23 +42,23 @@
             </div>
         </header>
 
-        <!-- BIG HERO SECTION -->
+         <!-- BIG HERO SECTION -->
         <section class="hero-section">
             <div class="hero-content">
                 <div class="hero-badge">
-                    🔥 #1 Free Tool Collection
+                    🔥 #1 Free Tool Collection - VIRAL!
                 </div>
                 <h1 class="hero-title">
-                    50+ Free Tools<br>
-                    <span class="hero-highlight">in One Place</span>
+                    All Tools You Need<br>
+                    <span class="hero-highlight">in One Website</span>
                 </h1>
                 <p class="hero-subtitle">
-                    Productivity tools, fun games, AI helpers & more. All free, no signup required.
-                    Join 15,000+ students already using ToolDash daily!
+                    ⚡ Fast, Free, No Signup Required<br>
+                    Productivity tools, fun games, AI helpers & more. Join 15,000+ students already using ToolDash daily!
                 </p>
                 <div class="hero-actions">
                     <button class="hero-cta" onclick="try{scrollToTools()}catch(e){document.getElementById('dashboardContent').scrollIntoView(true)}">
-                        🚀 Explore All Tools
+                        🚀 Start Using Now
                     </button>
                     <div class="hero-stats">
                         <div class="stat-item">
@@ -84,6 +84,29 @@
                     <div class="floating-tool tool-4">🎲</div>
                     <div class="floating-tool tool-5">🤖</div>
                 </div>
+            </div>
+        </section>
+
+        <!-- VIRAL SPIN WHEEL -->
+        <section class="spin-wheel-section">
+            <div class="spin-wheel-container">
+                <h2>🎡 Try Your Luck!</h2>
+                <p>Spin to win a random tool recommendation</p>
+                <div class="wheel-container">
+                    <div class="wheel" id="spinWheel">
+                        <div class="wheel-section" style="--i:1; --color:#ff6b6b;">Password</div>
+                        <div class="wheel-section" style="--i:2; --color:#4ecdc4;">Quiz</div>
+                        <div class="wheel-section" style="--i:3; --color:#45b7d1;">AI Writer</div>
+                        <div class="wheel-section" style="--i:4; --color:#f9ca24;">Games</div>
+                        <div class="wheel-section" style="--i:5; --color:#f0932b;">Dice</div>
+                        <div class="wheel-section" style="--i:6; --color:#eb4d4b;">Truth/Dare</div>
+                        <div class="wheel-section" style="--i:7; --color:#6c5ce7;">Calculator</div>
+                        <div class="wheel-section" style="--i:8; --color:#a29bfe;">Random</div>
+                    </div>
+                    <div class="wheel-pointer">▼</div>
+                </div>
+                <button class="spin-btn" onclick="spinWheel()">🎯 SPIN NOW!</button>
+                <div class="spin-result" id="spinResult"></div>
             </div>
         </section>
 
@@ -288,6 +311,34 @@
                         <p>Random humor</p>
                         <span class="tool-trend">😄 Funny</span>
                     </a>
+                </div>
+            </section>
+
+            <!-- DAILY TOOL & NEW FEATURES -->
+            <section class="daily-section">
+                <div class="daily-container">
+                    <div class="daily-tool">
+                        <div class="daily-header">
+                            <span class="daily-icon">🌟</span>
+                            <h3>Daily Tool</h3>
+                            <span class="daily-date">Today</span>
+                        </div>
+                        <p class="daily-description">Today's featured tool: <strong>AI Text Summarizer</strong> - Condense long articles into key points instantly!</p>
+                        <button class="daily-btn" onclick="window.location.href='ai-summarizer.html'">Try It Now</button>
+                    </div>
+
+                    <div class="new-feature">
+                        <div class="feature-header">
+                            <span class="feature-icon">🚀</span>
+                            <h3>New This Week</h3>
+                        </div>
+                        <ul class="feature-list">
+                            <li>✨ Voice Truth or Dare (Premium)</li>
+                            <li>🎲 Custom Dice Roller</li>
+                            <li>🤖 AI Grammar Checker</li>
+                            <li>📱 QR Code Generator</li>
+                        </ul>
+                    </div>
                 </div>
             </section>
 
@@ -943,6 +994,37 @@
 
         // Initialize theme selector visibility
         checkPremiumStatus();
+
+        // Spin Wheel Functionality
+        function spinWheel() {
+            const wheel = document.getElementById('spinWheel');
+            const result = document.getElementById('spinResult');
+            const tools = ['Password Generator', 'AI Quiz Master', 'AI Text Writer', 'Truth or Dare', 'Dice Roller', 'Magic 8 Ball', 'Calculator', 'Random Generator'];
+            const pages = ['password.html', 'quiz.html', 'ai-writer.html', 'truthdare.html', 'dice.html', 'magic8.html', 'calculator.html', 'random.html'];
+
+            // Disable button during spin
+            const spinBtn = document.querySelector('.spin-btn');
+            spinBtn.disabled = true;
+            spinBtn.textContent = '🎡 Spinning...';
+
+            // Random rotation
+            const randomDegree = Math.floor(Math.random() * 360) + 1800; // 5+ full rotations
+            wheel.style.transform = `rotate(${randomDegree}deg)`;
+
+            setTimeout(() => {
+                // Calculate which section it landed on
+                const finalDegree = randomDegree % 360;
+                const sectionIndex = Math.floor((360 - finalDegree) / 45);
+                const toolName = tools[sectionIndex];
+                const toolPage = pages[sectionIndex];
+
+                result.innerHTML = `🎉 You got: <strong>${toolName}</strong>!<br><button class="result-btn" onclick="window.location.href='${toolPage}'">Use It Now</button>`;
+
+                // Re-enable button
+                spinBtn.disabled = false;
+                spinBtn.textContent = '🎯 SPIN AGAIN!';
+            }, 4000);
+        }
     </script>
 
     <!-- FOOTER -->
