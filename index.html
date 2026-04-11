@@ -3,200 +3,672 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>My Tools Website</title>
+    <title>ToolDash - Your Ultimate Tool Dashboard</title>
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-    <!-- NAVBAR -->
-    <nav>
-        <h2>⚡ MultiTool</h2>
-        <div>
-            <a href="#">Home</a>
-            <a href="#">Tools</a>
-            <a href="#">About</a>
-        </div>
-    </nav>
+    <!-- MAIN DASHBOARD -->
+    <div id="mainApp" class="main-app">
 
-    <!-- HERO SECTION -->
-    <section class="hero">
-        <h1>All-in-One Fun Tools 🚀</h1>
-        <p>Free & premium tools for entertainment and productivity</p>
-    </section>
-
-    <!-- PREMIUM SECTION -->
-    <section class="premium-section">
-        <div class="premium-card">
-            <h2>⭐ Go Premium</h2>
-            <div class="price">₹19<span>/month</span></div>
-            <ul class="premium-features">
-                <li>🎨 Multiple themes (Dark, Neon, Retro)</li>
-                <li>🔓 Advanced password generator</li>
-                <li>🎯 Unlimited quiz questions</li>
-                <li>🎮 Voice Truth or Dare</li>
-                <li>🎲 Custom dice (up to 100 sides)</li>
-                <li>🎪 Early access to new games</li>
-                <li>💎 Premium-only mini games</li>
-                <li>📱 Ad-free experience</li>
-            </ul>
-            <button class="premium-btn" onclick="alert('Premium subscription coming soon!')">Subscribe Now</button>
-        </div>
-    </section>
-
-    <!-- THEME SELECTOR (PREMIUM FEATURE) -->
-    <div class="theme-selector" id="themeSelector">
-        <h4>🎨 Theme</h4>
-        <div class="theme-buttons">
-            <button class="theme-btn theme-dark-btn active" onclick="setTheme('dark')"></button>
-            <button class="theme-btn theme-neon-btn" onclick="setTheme('neon')"></button>
-            <button class="theme-btn theme-retro-btn" onclick="setTheme('retro')"></button>
-        </div>
-    </div>
-
-    <!-- FREE TOOLS -->
-    <div class="container">
-        <a href="password.html">
-            <div class="box">🔐 Password Generator</div>
-        </a>
-
-        <div class="box" onclick="openPage('quiz.html')">
-            🧠 Quiz App
-        </div>
-
-        <div class="box" onclick="openPage('truthdare.html')">
-            🎮 Truth or Dare
-        </div>
-
-        <div class="box" onclick="openPage('random.html')">
-            🎲 Random Number
-        </div>
-
-        <div class="box" onclick="openPage('coinflip.html')">
-            🪙 Coin Flip
-        </div>
-
-        <div class="box" onclick="openPage('dice.html')">
-            🎯 Dice Roll
-        </div>
-
-        <div class="box" onclick="openPage('rps.html')">
-            ✂️ Rock Paper Scissors
-        </div>
-
-        <div class="box" onclick="openPage('magic8.html')">
-            🔮 Magic 8 Ball
-        </div>
-
-        <div class="box" onclick="openPage('joke.html')">
-            😂 Joke Generator
-        </div>
-
-        <a href="advanced-password.html">
-            <div class="box premium-tool">
-                🔓 <span class="premium-label">PREMIUM</span><br>Advanced Password
+        <!-- UNIFIED HEADER -->
+        <header class="app-header">
+            <div class="header-content">
+                <div class="logo">
+                    <span class="logo-icon">⚡</span>
+                    <span class="logo-text">ToolDash</span>
+                </div>
+                <nav class="main-nav">
+                    <a href="#" class="nav-link active" onclick="showDashboard()">Dashboard</a>
+                    <a href="#" class="nav-link" onclick="showCategories()">Categories</a>
+                    <a href="#" class="nav-link" onclick="showPremium()">Premium</a>
+                </nav>
+                <div class="header-actions">
+                    <button class="theme-toggle" onclick="toggleTheme()" title="Toggle Theme">🌓</button>
+                </div>
             </div>
-        </a>
+        </header>
 
-        <div class="box premium-tool" onclick="alert('Premium feature! Upgrade to unlock voice Truth or Dare.')">
-            🎤 <span class="premium-label">PREMIUM</span><br>Voice Truth or Dare
-        </div>
+        <!-- SEARCH BAR -->
+        <section class="search-section">
+            <div class="search-container">
+                <div class="search-input-wrapper">
+                    <input type="text" id="searchInput" placeholder="Search tools... (try: password, quiz, magic)" class="search-input">
+                    <button class="search-btn" onclick="performSearch()">🔍</button>
+                </div>
+                <div class="search-hints">
+                    <span class="hint-tag" onclick="searchByTag('password')">🔐 Password</span>
+                    <span class="hint-tag" onclick="searchByTag('quiz')">🧠 Quiz</span>
+                    <span class="hint-tag" onclick="searchByTag('magic')">🔮 Magic</span>
+                    <span class="hint-tag" onclick="searchByTag('dice')">🎲 Dice</span>
+                    <span class="hint-tag" onclick="searchByTag('coin')">🪙 Coin</span>
+                </div>
+            </div>
+        </section>
 
-        <div class="box premium-tool" onclick="alert('Premium feature! Upgrade to unlock custom dice.')">
-            🎲 <span class="premium-label">PREMIUM</span><br>Custom Dice
-        </div>
+        <!-- DASHBOARD CONTENT -->
+        <main class="dashboard-content">
+
+            <!-- WELCOME SECTION -->
+            <section class="welcome-section">
+                <h1>Welcome to ToolDash</h1>
+                <p>Your all-in-one productivity and entertainment toolkit</p>
+            </section>
+
+            <!-- CATEGORIES GRID -->
+            <section class="categories-section">
+                <h2>Explore Categories</h2>
+                <div class="categories-grid">
+                    <div class="category-card" onclick="showCategoryTools('productivity')">
+                        <div class="category-icon">🧠</div>
+                        <h3>Productivity</h3>
+                        <p>Tools to boost your efficiency</p>
+                        <div class="tool-count">4 tools</div>
+                    </div>
+
+                    <div class="category-card" onclick="showCategoryTools('fun')">
+                        <div class="category-icon">🎮</div>
+                        <h3>Fun & Games</h3>
+                        <p>Entertainment and decision making</p>
+                        <div class="tool-count">6 tools</div>
+                    </div>
+
+                    <div class="category-card" onclick="showCategoryTools('utilities')">
+                        <div class="category-icon">🔧</div>
+                        <h3>Utilities</h3>
+                        <p>Essential helper tools</p>
+                        <div class="tool-count">3 tools</div>
+                    </div>
+
+                    <div class="category-card premium-category" onclick="showPremiumModal()">
+                        <div class="category-icon">⭐</div>
+                        <h3>Premium</h3>
+                        <p>Advanced features & themes</p>
+                        <div class="tool-count">∞ tools</div>
+                    </div>
+                </div>
+            </section>
+
+<!-- RECENT TOOLS -->
+            <section class="recent-section">
+                <h2>Popular Tools</h2>
+                <div class="tools-grid" id="popularTools">
+                    <!-- Tools loaded by JavaScript -->
+                    <!-- Fallback static content -->
+                    <a href="password.html" class="tool-card">
+                        <div class="tool-icon">🔐</div>
+                        <h3>Password Generator</h3>
+                        <p>Generate secure passwords</p>
+                    </a>
+                    <a href="quiz.html" class="tool-card">
+                        <div class="tool-icon">🧠</div>
+                        <h3>Quiz App</h3>
+                        <p>Test your knowledge</p>
+                    </a>
+                    <a href="truthdare.html" class="tool-card">
+                        <div class="tool-icon">🎮</div>
+                        <h3>Truth or Dare</h3>
+                        <p>Classic party game</p>
+                    </a>
+                    <a href="magic8.html" class="tool-card">
+                        <div class="tool-icon">🔮</div>
+                        <h3>Magic 8 Ball</h3>
+                        <p>Ask the mystical oracle</p>
+                    </a>
+                    <a href="coinflip.html" class="tool-card">
+                        <div class="tool-icon">🪙</div>
+                        <h3>Coin Flip</h3>
+                        <p>Flip a virtual coin</p>
+                    </a>
+                    <a href="joke.html" class="tool-card">
+                        <div class="tool-icon">😂</div>
+                        <h3>Joke Generator</h3>
+                        <p>Get random jokes</p>
+                    </a>
+                </div>
+            </section>
+
+        </main>
+
     </div>
 
     <script>
-        function openPage(page) {
+        // Tool Database
+        const tools = {
+            productivity: [
+                { id: 'password', name: 'Password Generator', icon: '🔐', desc: 'Generate secure passwords', page: 'password.html', popular: true },
+                { id: 'quiz', name: 'Quiz App', icon: '🧠', desc: 'Test your knowledge', page: 'quiz.html', popular: true },
+                { id: 'advanced-password', name: 'Advanced Password', icon: '🔓', desc: 'Premium password tools', page: 'advanced-password.html', premium: true }
+            ],
+            fun: [
+                { id: 'truthdare', name: 'Truth or Dare', icon: '🎮', desc: 'Classic party game', page: 'truthdare.html', popular: true },
+                { id: 'magic8', name: 'Magic 8 Ball', icon: '🔮', desc: 'Ask the mystical oracle', page: 'magic8.html', popular: true },
+                { id: 'joke', name: 'Joke Generator', icon: '😂', desc: 'Get random jokes', page: 'joke.html', popular: false },
+                { id: 'rps', name: 'Rock Paper Scissors', icon: '✂️', desc: 'Play against computer', page: 'rps.html', popular: false },
+                { id: 'voice-truthdare', name: 'Voice Truth or Dare', icon: '🎤', desc: 'Voice-powered game', premium: true }
+            ],
+            utilities: [
+                { id: 'random', name: 'Random Number', icon: '🎲', desc: 'Generate random numbers', page: 'random.html', popular: false },
+                { id: 'coinflip', name: 'Coin Flip', icon: '🪙', desc: 'Flip a virtual coin', page: 'coinflip.html', popular: true },
+                { id: 'dice', name: 'Dice Roll', icon: '🎯', desc: 'Roll custom dice', page: 'dice.html', popular: false },
+                { id: 'custom-dice', name: 'Custom Dice', icon: '🎲', desc: '100-sided dice', premium: true }
+            ]
+        };
+
+        let currentView = 'dashboard';
+        let currentCategory = null;
+
+        // Initialize App on load
+        window.onload = function() {
+            console.log("ToolDash initializing...");
+            
+            // First, make sure dashboard content is visible
+            const dashboardContent = document.querySelector('.dashboard-content');
+            if (dashboardContent) {
+                console.log("Dashboard content found, showing dashboard...");
+                showDashboard();
+            } else {
+                console.error("Dashboard content NOT found!");
+            }
+            
+            // Setup search functionality
+            setupSearch();
+            
+            // Check premium status
+            checkPremiumStatus();
+            
+            console.log("ToolDash initialized!");
+        };
+        
+        // Debug - test if functions exist
+        function testDebug() {
+            alert('JS is working! Functions: showDashboard=' + typeof showDashboard + 
+                  ', showCategories=' + typeof showCategories + 
+                  ', showPremium=' + typeof showPremium);
+        }
+        
+        // Add global error handler
+        window.onerror = function(msg, url, line) {
+            console.error('JS Error:', msg, 'at line', line);
+            alert('Error: ' + msg);
+            return false;
+        };
+
+        // Navigation Functions with smooth animations
+        function showDashboard() {
+            console.log("showDashboard called");
+            try {
+                currentView = 'dashboard';
+                currentCategory = null;
+                updateNavigation('dashboard');
+
+                var content = document.querySelector('.dashboard-content');
+                if (content) {
+                    // Add fade out animation
+                    content.style.opacity = '0';
+                    content.style.transform = 'translateY(-10px)';
+
+                    setTimeout(() => {
+                        content.innerHTML = getDashboardHTML();
+                        loadPopularTools();
+
+                        // Add fade in animation
+                        content.style.transition = 'all 0.3s ease-out';
+                        content.style.opacity = '1';
+                        content.style.transform = 'translateY(0)';
+                    }, 150);
+                } else {
+                    console.error("dashboard-content element not found!");
+                }
+            } catch(e) {
+                console.error("Error in showDashboard:", e);
+            }
+        }
+
+        function showCategories() {
+            console.log("showCategories called");
+            try {
+                currentView = 'categories';
+                updateNavigation('categories');
+                var content = document.querySelector('.dashboard-content');
+                if (content) {
+                    // Add fade out animation
+                    content.style.opacity = '0';
+                    content.style.transform = 'translateY(-10px)';
+
+                    setTimeout(() => {
+                        content.innerHTML = getCategoriesHTML();
+
+                        // Add fade in animation
+                        content.style.transition = 'all 0.3s ease-out';
+                        content.style.opacity = '1';
+                        content.style.transform = 'translateY(0)';
+                    }, 150);
+                }
+            } catch(e) {
+                console.error("Error in showCategories:", e);
+            }
+        }
+
+        function showPremium() {
+            console.log("showPremium called");
+            try {
+                currentView = 'premium';
+                updateNavigation('premium');
+                var content = document.querySelector('.dashboard-content');
+                if (content) {
+                    // Add fade out animation
+                    content.style.opacity = '0';
+                    content.style.transform = 'translateY(-10px)';
+
+                    setTimeout(() => {
+                        content.innerHTML = getPremiumHTML();
+
+                        // Add fade in animation
+                        content.style.transition = 'all 0.3s ease-out';
+                        content.style.opacity = '1';
+                        content.style.transform = 'translateY(0)';
+                    }, 150);
+                }
+            } catch(e) {
+                console.error("Error in showPremium:", e);
+            }
+        }
+
+        function showCategoryTools(category) {
+            console.log("showCategoryTools called for:", category);
+            try {
+                currentCategory = category;
+                currentView = 'category';
+                updateNavigation('categories');
+                var content = document.querySelector('.dashboard-content');
+                if (content) {
+                    // Add fade out animation
+                    content.style.opacity = '0';
+                    content.style.transform = 'translateY(-10px)';
+
+                    setTimeout(() => {
+                        content.innerHTML = getCategoryToolsHTML(category);
+
+                        // Add fade in animation
+                        content.style.transition = 'all 0.3s ease-out';
+                        content.style.opacity = '1';
+                        content.style.transform = 'translateY(0)';
+                    }, 150);
+                }
+            } catch(e) {
+                console.error("Error in showCategoryTools:", e);
+            }
+        }
+
+        function updateNavigation(active) {
+            try {
+                document.querySelectorAll('.nav-link').forEach(link => {
+                    link.classList.remove('active');
+                });
+                var activeLink = document.querySelector('[onclick*="' + active + '"]');
+                if (activeLink) {
+                    activeLink.classList.add('active');
+                }
+            } catch(e) {
+                console.error("Error in updateNavigation:", e);
+            }
+        }
+
+        // HTML Generators
+        function getDashboardHTML() {
+            return `
+                <section class="welcome-section">
+                    <h1>Welcome to ToolDash</h1>
+                    <p>Your all-in-one productivity and entertainment toolkit</p>
+                </section>
+
+                <section class="categories-section">
+                    <h2>Explore Categories</h2>
+                    <div class="categories-grid">
+<div class="category-card" onclick="showCategoryTools('productivity')" style="cursor:pointer">
+                        <div class="category-icon">🧠</div>
+                        <h3>Productivity</h3>
+                        <p>Tools to boost your efficiency</p>
+                        <div class="tool-count">3 tools</div>
+                    </div>
+
+                    <div class="category-card" onclick="showCategoryTools('fun')" style="cursor:pointer">
+                        <div class="category-icon">🎮</div>
+                        <h3>Fun & Games</h3>
+                        <p>Entertainment and decision making</p>
+                        <div class="tool-count">5 tools</div>
+                    </div>
+
+                    <div class="category-card" onclick="showCategoryTools('utilities')" style="cursor:pointer">
+                        <div class="category-icon">🔧</div>
+                        <h3>Utilities</h3>
+                        <p>Essential helper tools</p>
+                        <div class="tool-count">3 tools</div>
+                    </div>
+
+                    <div class="category-card premium-category" onclick="showPremium()" style="cursor:pointer">
+                        <div class="category-icon">⭐</div>
+                        <h3>Premium</h3>
+                        <p>Advanced features & themes</p>
+                        <div class="tool-count">∞ tools</div>
+                    </div>
+                    </div>
+                </section>
+
+                <section class="recent-section">
+                    <h2>Popular Tools</h2>
+                    <div class="tools-grid" id="popularTools"></div>
+                </section>
+            `;
+        }
+
+        function getCategoriesHTML() {
+            return `
+                <section class="categories-full">
+                    <h1>Tool Categories</h1>
+                    <p>Choose a category to explore available tools</p>
+
+                    <div class="categories-full-grid">
+                        <div class="category-full-card" onclick="showCategoryTools('productivity')">
+                            <div class="category-full-icon">🧠</div>
+                            <div class="category-full-content">
+                                <h3>Productivity</h3>
+                                <p>Enhance your productivity with our suite of tools designed to help you work smarter and faster.</p>
+                                <div class="tool-count">${tools.productivity.length} tools available</div>
+                            </div>
+                        </div>
+
+                        <div class="category-full-card" onclick="showCategoryTools('fun')">
+                            <div class="category-full-icon">🎮</div>
+                            <div class="category-full-content">
+                                <h3>Fun & Games</h3>
+                                <p>Entertain yourself with games, decision makers, and fun utilities for every occasion.</p>
+                                <div class="tool-count">${tools.fun.length} tools available</div>
+                            </div>
+                        </div>
+
+                        <div class="category-full-card" onclick="showCategoryTools('utilities')">
+                            <div class="category-full-icon">🔧</div>
+                            <div class="category-full-content">
+                                <h3>Utilities</h3>
+                                <p>Essential tools for everyday tasks, calculations, and random generation needs.</p>
+                                <div class="tool-count">${tools.utilities.length} tools available</div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            `;
+        }
+
+        function getCategoryToolsHTML(category) {
+            const categoryTools = tools[category];
+            const categoryNames = {
+                productivity: 'Productivity',
+                fun: 'Fun & Games',
+                utilities: 'Utilities'
+            };
+
+            return `
+                <section class="category-tools">
+                    <div class="category-header">
+                        <button class="back-btn" onclick="showCategories()">← Back to Categories</button>
+                        <h1>${categoryNames[category]} Tools</h1>
+                        <p>Explore all tools in this category</p>
+                    </div>
+
+                    <div class="tools-grid">
+                        ${categoryTools.map(tool => `
+                            <div class="tool-card ${tool.premium ? 'premium-tool' : ''}" onclick="${tool.premium ? `showPremiumModal()` : `openTool('${tool.page}')`}">
+                                <div class="tool-icon">${tool.icon}</div>
+                                <h3>${tool.name}</h3>
+                                <p>${tool.desc}</p>
+                                ${tool.premium ? '<div class="premium-badge">⭐ PREMIUM</div>' : ''}
+                            </div>
+                        `).join('')}
+                    </div>
+                </section>
+            `;
+        }
+
+        function getPremiumHTML() {
+            return `
+                <section class="premium-section">
+                    <div class="premium-hero">
+                        <h1>Unlock Premium Features</h1>
+                        <p>Take your experience to the next level with advanced tools and exclusive features</p>
+                    </div>
+
+                    <div class="premium-plans">
+                        <div class="premium-card">
+                            <div class="premium-header">
+                                <h2>⭐ Premium Plan</h2>
+                                <div class="price">₹19<span>/month</span></div>
+                            </div>
+
+                            <div class="premium-features">
+                                <div class="feature-item">🎨 Multiple themes (Dark, Neon, Retro)</div>
+                                <div class="feature-item">🔓 Advanced password generator</div>
+                                <div class="feature-item">🎯 Unlimited quiz questions</div>
+                                <div class="feature-item">🎤 Voice Truth or Dare</div>
+                                <div class="feature-item">🎲 Custom dice (up to 100 sides)</div>
+                                <div class="feature-item">🎪 Early access to new games</div>
+                                <div class="feature-item">💎 Premium-only mini games</div>
+                                <div class="feature-item">📱 Ad-free experience</div>
+                            </div>
+
+                            <button class="premium-btn" onclick="upgradeToPremium()">Subscribe Now</button>
+                        </div>
+                    </div>
+                </section>
+            `;
+        }
+
+        // Tool Functions
+        function loadPopularTools() {
+            const popularTools = [];
+            Object.values(tools).forEach(category => {
+                popularTools.push(...category.filter(tool => tool.popular));
+            });
+
+            const container = document.getElementById('popularTools');
+            if (container) {
+                container.innerHTML = popularTools.slice(0, 6).map(tool => `
+                    <div class="tool-card ${tool.premium ? 'premium-tool' : ''}" onclick="${tool.premium ? `showPremiumModal()` : `openTool('${tool.page}')`}">
+                        <div class="tool-icon">${tool.icon}</div>
+                        <h3>${tool.name}</h3>
+                        <p>${tool.desc}</p>
+                        ${tool.premium ? '<div class="premium-badge">⭐ PREMIUM</div>' : ''}
+                    </div>
+                `).join('');
+            }
+        }
+
+        function openTool(page) {
             window.location.href = page + "?v=" + Date.now();
         }
 
-        function showPremiumModal() {
-            alert("🎉 Premium Subscription!\n\n₹19/month gets you:\n• Multiple themes\n• Advanced password generator\n• Unlimited quiz questions\n• Voice Truth or Dare\n• Custom dice (up to 100 sides)\n• Early access to new games\n• Ad-free experience\n\nSubscribe now to unlock all premium features!");
-        }
+        // Search Functions
+        function setupSearch() {
+            const searchInput = document.getElementById('searchInput');
 
-        document.querySelectorAll(".box").forEach(box => {
-            box.addEventListener("click", function(e) {
-                let circle = document.createElement("span");
-                circle.classList.add("ripple");
-
-                this.appendChild(circle);
-
-                let x = e.clientX - this.offsetLeft;
-                let y = e.clientY - this.offsetTop;
-
-                circle.style.left = x + "px";
-                circle.style.top = y + "px";
-
-                setTimeout(() => {
-                    circle.remove();
-                }, 500);
-            });
-        });
-
-        // Premium subscription button
-        document.querySelector('.premium-btn').addEventListener('click', function() {
-            showPremiumModal();
-            // Simulate successful payment
-            setTimeout(() => {
-                if (confirm('🎉 Payment successful! Upgrade to Premium now?')) {
-                    upgradeToPremium();
+            searchInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    performSearch();
                 }
-            }, 1000);
-        });
+            });
 
-        // Premium tool alerts
-        document.querySelectorAll('.premium-tool').forEach(tool => {
-            if (!tool.closest('a')) { // Only add click handler if not wrapped in link
-                tool.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    const toolName = this.textContent.replace('PREMIUM', '').trim();
-                    alert(`🔒 ${toolName} is a Premium Feature!\n\nUpgrade to Premium for ₹19/month to unlock:\n• ${toolName}\n• Multiple themes\n• Advanced tools\n• Early access\n• Ad-free experience`);
-                });
-            }
-        });
-
-        // Theme switching functions
-        function setTheme(theme) {
-            // Remove all theme classes
-            document.body.classList.remove('theme-dark', 'theme-neon', 'theme-retro');
-
-            // Add selected theme
-            document.body.classList.add('theme-' + theme);
-
-            // Update active button
-            document.querySelectorAll('.theme-btn').forEach(btn => btn.classList.remove('active'));
-            document.querySelector('.theme-' + theme + '-btn').classList.add('active');
-
-            // Save theme preference (simulated for premium users)
-            localStorage.setItem('selectedTheme', theme);
+            searchInput.addEventListener('input', function() {
+                const query = this.value.toLowerCase().trim();
+                if (query.length > 0) {
+                    performInstantSearch(query);
+                } else {
+                    showDashboard();
+                }
+            });
         }
 
-        // Check if user is premium (simulated)
+        function performSearch() {
+            const query = document.getElementById('searchInput').value.toLowerCase().trim();
+            if (query.length === 0) return;
+
+            performInstantSearch(query);
+        }
+
+        function performInstantSearch(query) {
+            const results = [];
+            Object.values(tools).forEach(category => {
+                results.push(...category.filter(tool =>
+                    tool.name.toLowerCase().includes(query) ||
+                    tool.desc.toLowerCase().includes(query) ||
+                    tool.id.toLowerCase().includes(query)
+                ));
+            });
+
+            if (results.length > 0) {
+                document.querySelector('.dashboard-content').innerHTML = `
+                    <section class="search-results">
+                        <div class="search-header">
+                            <h1>Search Results</h1>
+                            <p>Found ${results.length} tool${results.length !== 1 ? 's' : ''} for "${query}"</p>
+                        </div>
+
+                        <div class="tools-grid">
+                            ${results.map(tool => `
+                                <div class="tool-card ${tool.premium ? 'premium-tool' : ''}" onclick="${tool.premium ? `showPremiumModal()` : `openTool('${tool.page}')`}">
+                                    <div class="tool-icon">${tool.icon}</div>
+                                    <h3>${tool.name}</h3>
+                                    <p>${tool.desc}</p>
+                                    ${tool.premium ? '<div class="premium-badge">⭐ PREMIUM</div>' : ''}
+                                </div>
+                            `).join('')}
+                        </div>
+                    </section>
+                `;
+            } else {
+                document.querySelector('.dashboard-content').innerHTML = `
+                    <section class="no-results">
+                        <h1>No Results Found</h1>
+                        <p>Try searching for: password, quiz, magic, dice, coin, truth</p>
+                        <button class="btn-primary" onclick="showDashboard()">Back to Dashboard</button>
+                    </section>
+                `;
+            }
+        }
+
+        function searchByTag(tag) {
+            document.getElementById('searchInput').value = tag;
+            performSearch();
+        }
+
+        // Premium Functions
+        function showPremiumModal() {
+            const modal = document.createElement('div');
+            modal.className = 'modal-overlay';
+            modal.innerHTML = `
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h2>🎉 Go Premium!</h2>
+                        <button class="modal-close" onclick="closeModal()">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <p>Unlock advanced features for just ₹19/month</p>
+                        <ul>
+                            <li>🎨 Multiple themes (Dark, Neon, Retro)</li>
+                            <li>🔓 Advanced password generator</li>
+                            <li>🎯 Unlimited quiz questions</li>
+                            <li>🎤 Voice Truth or Dare</li>
+                            <li>🎲 Custom dice (up to 100 sides)</li>
+                            <li>🎪 Early access to new games</li>
+                            <li>💎 Premium-only mini games</li>
+                            <li>📱 Ad-free experience</li>
+                        </ul>
+                        <button class="premium-btn" onclick="upgradeToPremium(); closeModal();">Subscribe Now - ₹19/month</button>
+                    </div>
+                </div>
+            `;
+            document.body.appendChild(modal);
+        }
+
+        function closeModal() {
+            const modal = document.querySelector('.modal-overlay');
+            if (modal) modal.remove();
+        }
+
+        function upgradeToPremium() {
+            localStorage.setItem('isPremium', 'true');
+            alert('🎉 Welcome to Premium!\n\nYou now have access to:\n• Multiple themes\n• Advanced tools\n• Premium features\n• Early access\n\nTheme selector is now enabled!');
+            checkPremiumStatus();
+            showDashboard();
+        }
+
         function checkPremiumStatus() {
             const isPremium = localStorage.getItem('isPremium') === 'true';
             if (isPremium) {
-                document.getElementById('themeSelector').classList.add('show');
+                document.querySelector('.theme-toggle').style.display = 'block';
                 // Load saved theme
                 const savedTheme = localStorage.getItem('selectedTheme') || 'dark';
                 setTheme(savedTheme);
             }
         }
 
-        // Simulate premium upgrade
-        function upgradeToPremium() {
-            localStorage.setItem('isPremium', 'true');
-            alert('🎉 Welcome to Premium!\n\nYou now have access to:\n• Multiple themes\n• Advanced tools\n• Premium features\n• Early access\n\nTheme selector is now enabled!');
-            checkPremiumStatus();
+        // Theme Functions
+        function toggleTheme() {
+            const isPremium = localStorage.getItem('isPremium') === 'true';
+            if (!isPremium) {
+                showPremiumModal();
+                return;
+            }
+
+            const currentTheme = localStorage.getItem('selectedTheme') || 'dark';
+            const themes = ['dark', 'neon', 'retro'];
+            const currentIndex = themes.indexOf(currentTheme);
+            const nextTheme = themes[(currentIndex + 1) % themes.length];
+
+            setTheme(nextTheme);
+        }
+
+        function setTheme(theme) {
+            document.body.classList.remove('theme-dark', 'theme-neon', 'theme-retro');
+            document.body.classList.add('theme-' + theme);
+            localStorage.setItem('selectedTheme', theme);
+
+            const themeIcons = { dark: '🌙', neon: '🌈', retro: '🕹️' };
+            document.querySelector('.theme-toggle').textContent = themeIcons[theme] || '🌓';
+        }
+
+        // Utility Functions
+        function showAbout() {
+            alert('ToolDash - Built with ❤️ by SG SURYAN\n\nA comprehensive collection of productivity and entertainment tools.');
+        }
+
+        function showPrivacy() {
+            alert('Privacy Policy\n\nWe respect your privacy. No personal data is collected or stored.');
+        }
+
+        function showContact() {
+            alert('Contact\n\nBuilt by SG SURYAN\nFor suggestions or feedback, feel free to reach out!');
         }
 
         // Initialize theme selector visibility
         checkPremiumStatus();
     </script>
 
-    <footer>
-        <p>Made by me 😎 | More tools coming soon</p>
+    <!-- FOOTER -->
+    <footer class="app-footer">
+        <div class="footer-content">
+            <p>Built with ❤️ by SG SURYAN</p>
+            <div class="footer-links">
+                <a href="#" onclick="showAbout()">About</a>
+                <a href="#" onclick="showPrivacy()">Privacy</a>
+                <a href="#" onclick="showContact()">Contact</a>
+            </div>
+        </div>
     </footer>
 
 </body>

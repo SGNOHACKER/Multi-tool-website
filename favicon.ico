@@ -1,0 +1,9 @@
+To create a favicon for ToolDash:
+
+1. Create a simple icon with the lightning bolt ⚡ symbol
+2. Use a dark background with blue/cyan accent colors
+3. Save as favicon.ico (16x16, 32x32, 48x48 sizes)
+4. Place in the root directory
+
+For now, browsers will use the default favicon behavior.
+You can generate a favicon at: https://favicon.io/favicon-generator/

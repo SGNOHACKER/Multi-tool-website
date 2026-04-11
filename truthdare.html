@@ -3,9 +3,145 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Truth or Dare</title>
+    <title>ToolDash - Truth or Dare</title>
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <style>
+        /* Tool page styles */
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+
+        .tool-page {
+            min-height: 100vh;
+            background: var(--bg-gradient, radial-gradient(circle at top, #0f172a, #000));
+        }
+
+        .tool-nav {
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 16px 20px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .tool-nav-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .tool-nav .logo {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .back-btn {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+
+        .back-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .tool-main {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .tool-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .tool-title {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+            background: linear-gradient(135deg, #38bdf8, #818cf8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .tool-subtitle {
+            color: #94a3b8;
+            font-size: 1.125rem;
+        }
+
+        /* Button consistency */
+        button {
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .truth, .dare, .next {
+            padding: 15px 25px;
+            margin: 10px;
+            font-size: 18px;
+        }
+
+        .truth {
+            background: #38bdf8;
+            color: white;
+        }
+
+        .dare {
+            background: #f43f5e;
+            color: white;
+        }
+
+        .next {
+            background: #22c55e;
+            color: white;
+        }
+
+        button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+        }
+
+        /* Tool footer */
+        .tool-footer {
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(20px);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 24px 0;
+            margin-top: 60px;
+        }
+
+        .tool-footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            text-align: center;
+            color: #94a3b8;
+            font-size: 0.875rem;
+        }
         /* Override body padding for this page since tool container handles it */
         body {
             padding: 20px 10px;
@@ -112,26 +248,33 @@
 
 <body>
 
-    <!-- NAVBAR -->
-    <nav>
-        <h2>⚡ MultiTool</h2>
-        <div>
-            <a href="index.html">Home</a>
-            <a href="#">Tools</a>
-            <a href="#">About</a>
-        </div>
-    </nav>
+    <div class="tool-page">
+        <!-- Tool Navigation -->
+        <nav class="tool-nav">
+            <div class="tool-nav-content">
+                <div class="logo">
+                    <span class="logo-icon">⚡</span>
+                    <span class="logo-text">ToolDash</span>
+                </div>
+                <a href="index.html" class="back-btn">← Back to Dashboard</a>
+            </div>
+        </nav>
 
-    <h1>🎮 Truth or Dare</h1>
+        <!-- Tool Content -->
+        <main class="tool-main">
+            <header class="tool-header">
+                <h1 class="tool-title">🎮 Truth or Dare</h1>
+                <p class="tool-subtitle">Classic party game for endless fun</p>
+            </header>
 
-    <div class="card">
-        <button class="truth" onclick="getTruth()">Truth</button>
-        <button class="dare" onclick="getDare()">Dare</button>
+            <div class="card">
+                <button class="truth" onclick="getTruth()">Truth</button>
+                <button class="dare" onclick="getDare()">Dare</button>
 
-        <p id="result">Click Truth or Dare 😎</p>
+                <p id="result">Click Truth or Dare 😎</p>
 
-        <button class="next" onclick="next()">Next ➡️</button>
-    </div>
+                <button class="next" onclick="next()">Next ➡️</button>
+            </div>
 
     <footer>
         <p>Made by me 😎 | More tools coming soon</p>
@@ -178,6 +321,15 @@
             }
         }
     </script>
+        </main>
+
+        <!-- Tool Footer -->
+        <footer class="tool-footer">
+            <div class="tool-footer-content">
+                <p>Built with ❤️ by SG SURYAN</p>
+            </div>
+        </footer>
+    </div>
 
 </body>
 </html>

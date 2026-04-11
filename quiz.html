@@ -3,9 +3,343 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Quiz App</title>
+    <title>ToolDash - Quiz App</title>
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <style>
+        /* Tool page styles */
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+
+        .tool-page {
+            min-height: 100vh;
+            background: var(--bg-gradient, radial-gradient(circle at top, #0f172a, #000));
+        }
+
+        .tool-nav {
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 16px 20px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .tool-nav-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .tool-nav .logo {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .back-btn {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+
+        .back-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .tool-main {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .tool-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .tool-title {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+            background: linear-gradient(135deg, #38bdf8, #818cf8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .tool-subtitle {
+            color: #94a3b8;
+            font-size: 1.125rem;
+        }
+
+        /* Button consistency */
+        .btn, .btn-restart, .quiz-btn {
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .btn-primary, .btn-restart {
+            background: linear-gradient(135deg, #38bdf8, #818cf8);
+            color: white;
+        }
+
+        .btn-primary:hover, .btn-restart:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(56, 189, 248, 0.4);
+        }
+
+        .btn-secondary {
+            background: linear-gradient(135deg, #6366f1, #8b5cf6);
+            color: white;
+            border: none;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);
+        }
+
+        .btn-secondary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .btn-secondary:hover::before {
+            left: 100%;
+        }
+
+        .btn-secondary:hover {
+            transform: translateY(-2px) scale(1.02);
+            box-shadow: 0 8px 25px rgba(99, 102, 241, 0.5);
+            background: linear-gradient(135deg, #4f46e5, #7c3aed);
+        }
+
+        .btn-secondary:active {
+            transform: translateY(0) scale(0.98);
+            transition: all 0.1s ease;
+        }
+
+        .quiz-btn {
+            background: rgba(255, 255, 255, 0.05);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            text-align: left;
+            width: 100%;
+            margin: 8px 0;
+        }
+
+        .quiz-btn:hover {
+            background: rgba(56, 189, 248, 0.2);
+            border-color: #38bdf8;
+        }
+
+        /* Difficulty Selection */
+        .difficulty-screen {
+            text-align: center;
+            padding: 20px 0;
+        }
+
+        .difficulty-screen h2 {
+            color: white;
+            margin-bottom: 40px;
+            font-size: 2rem;
+        }
+
+        .difficulty-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 24px;
+            margin-bottom: 40px;
+        }
+
+        .difficulty-btn {
+            background: rgba(30, 41, 59, 0.5);
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 32px 24px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .difficulty-btn:hover {
+            transform: translateY(-8px);
+            border-color: rgba(56, 189, 248, 0.3);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .difficulty-btn.easy:hover {
+            border-color: rgba(34, 197, 94, 0.5);
+            box-shadow: 0 20px 40px rgba(34, 197, 94, 0.2);
+        }
+
+        .difficulty-btn.medium:hover {
+            border-color: rgba(245, 158, 11, 0.5);
+            box-shadow: 0 20px 40px rgba(245, 158, 11, 0.2);
+        }
+
+        .difficulty-btn.hard:hover {
+            border-color: rgba(239, 68, 68, 0.5);
+            box-shadow: 0 20px 40px rgba(239, 68, 68, 0.2);
+        }
+
+        .difficulty-icon {
+            font-size: 3rem;
+            margin-bottom: 16px;
+        }
+
+        .difficulty-btn h3 {
+            color: white;
+            margin-bottom: 8px;
+            font-size: 1.5rem;
+        }
+
+        .difficulty-btn p {
+            color: #94a3b8;
+            margin-bottom: 16px;
+            font-size: 0.875rem;
+        }
+
+        .question-count {
+            background: rgba(56, 189, 248, 0.1);
+            color: #38bdf8;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+
+        /* Answer Overlay */
+        .answer-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(5px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .answer-card {
+            background: rgba(30, 41, 59, 0.95);
+            backdrop-filter: blur(20px);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 40px;
+            text-align: center;
+            max-width: 400px;
+            width: 90%;
+            animation: slideUp 0.4s ease;
+        }
+
+        .answer-icon {
+            font-size: 4rem;
+            margin-bottom: 20px;
+        }
+
+        .answer-title {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 16px;
+        }
+
+        .answer-text {
+            color: #94a3b8;
+            margin-bottom: 30px;
+            font-size: 1.125rem;
+        }
+
+        .correct-answer {
+            background: rgba(34, 197, 94, 0.1);
+            color: #22c55e;
+            padding: 12px 20px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            display: inline-block;
+            font-weight: 500;
+        }
+
+        .answer-btn {
+            background: linear-gradient(135deg, #38bdf8, #818cf8);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .answer-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(56, 189, 248, 0.4);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Tool footer */
+        .tool-footer {
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(20px);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 24px 0;
+            margin-top: 60px;
+        }
+
+        .tool-footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            text-align: center;
+            color: #94a3b8;
+            font-size: 0.875rem;
+        }
         .tool-container {
             max-width: 600px;
             margin: 60px auto;
@@ -76,6 +410,12 @@
             transform: translateX(10px);
         }
 
+        .quiz-btn.selected {
+            background: rgba(56, 189, 248, 0.3);
+            border-color: #38bdf8;
+            transform: translateX(5px);
+        }
+
         .score-display {
             text-align: center;
             padding: 40px;
@@ -85,6 +425,59 @@
             font-size: 48px;
             color: #38bdf8;
             margin-bottom: 20px;
+        }
+
+        .difficulty-badge {
+            display: inline-block;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+
+        .difficulty-badge.easy {
+            background: rgba(34, 197, 94, 0.2);
+            color: #22c55e;
+        }
+
+        .difficulty-badge.medium {
+            background: rgba(245, 158, 11, 0.2);
+            color: #f59e0b;
+        }
+
+        .difficulty-badge.hard {
+            background: rgba(239, 68, 68, 0.2);
+            color: #ef4444;
+        }
+
+        .score-message {
+            font-size: 16px;
+            font-weight: 500;
+            color: #38bdf8;
+            margin: 16px 0;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 8px;
+            animation: slideInUp 0.5s ease-out 0.3s both;
+        }
+
+        .action-buttons .btn-secondary {
+            font-size: 15px;
+            padding: 14px 28px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        .submit-section {
+            text-align: center;
+            margin-top: 20px;
+            animation: fadeIn 0.3s ease;
         }
 
         .btn-restart {
@@ -116,6 +509,19 @@
 
         /* MOBILE RESPONSIVE */
         @media (max-width: 600px) {
+            .difficulty-options {
+                grid-template-columns: 1fr;
+                gap: 16px;
+            }
+
+            .difficulty-btn {
+                padding: 24px 20px;
+            }
+
+            .difficulty-icon {
+                font-size: 2.5rem;
+            }
+
             .tool-container {
                 width: calc(100% - 40px);
                 padding: 20px 15px;
@@ -146,11 +552,39 @@
                 font-size: 36px;
             }
 
-            .btn-restart {
+            .action-buttons {
+                flex-direction: column;
+                align-items: center;
+                gap: 12px;
+            }
+
+            .btn-restart, .btn-secondary {
                 width: 100%;
                 max-width: 250px;
                 min-height: 50px;
                 font-size: 18px;
+            }
+
+            .btn-secondary {
+                background: linear-gradient(135deg, #6366f1, #8b5cf6);
+            }
+
+            .btn-secondary:hover {
+                background: linear-gradient(135deg, #4f46e5, #7c3aed);
+            }
+
+            .answer-card {
+                padding: 30px 20px;
+                margin: 20px;
+            }
+
+            .answer-title {
+                font-size: 1.75rem;
+            }
+
+            .submit-section .btn {
+                width: 100%;
+                max-width: 200px;
             }
 
             nav {
@@ -171,107 +605,196 @@
 </head>
 <body>
 
-    <!-- NAVBAR -->
-    <nav>
-        <h2>⚡ MultiTool</h2>
-        <div>
-            <a href="index.html">Home</a>
-            <a href="#">Tools</a>
-            <a href="#">About</a>
-        </div>
-    </nav>
+    <div class="tool-page">
+        <!-- Tool Navigation -->
+        <nav class="tool-nav">
+            <div class="tool-nav-content">
+                <div class="logo">
+                    <span class="logo-icon">⚡</span>
+                    <span class="logo-text">ToolDash</span>
+                </div>
+                <a href="index.html" class="back-btn">← Back to Dashboard</a>
+            </div>
+        </nav>
 
-    <div class="tool-container" id="quizContainer">
-        <h1>🧠 Quiz App</h1>
-        
-        <div class="quiz-header">
-            <h4 id="counter">Question 1 of 5</h4>
-            <h4 id="timer">⏱️ Time: 10s</h4>
-        </div>
-        
-        <div class="question-box">
-            <h3 id="question">Loading question...</h3>
-        </div>
-        
-        <button class="quiz-btn" onclick="checkAnswer('A')" id="btnA">A. Option</button>
-        <button class="quiz-btn" onclick="checkAnswer('B')" id="btnB">B. Option</button>
-        <button class="quiz-btn" onclick="checkAnswer('C')" id="btnC">C. Option</button>
-        <button class="quiz-btn" onclick="checkAnswer('D')" id="btnD">D. Option</button>
+        <!-- Tool Content -->
+        <main class="tool-main">
+            <header class="tool-header">
+                <h1 class="tool-title">🧠 Quiz App</h1>
+                <p class="tool-subtitle">Test your knowledge with fun quizzes</p>
+            </header>
 
-        <div id="scoreArea"></div>
-        
-        <a href="index.html" class="back-link">← Back to Home</a>
-    </div>
+            <!-- Difficulty Selection Screen -->
+            <div class="difficulty-screen" id="difficultyScreen">
+                <a href="index.html" class="back-link" style="position: absolute; top: 20px; left: 20px;">← Back to Dashboard</a>
+                <h2>Choose Difficulty Level</h2>
+                <div class="difficulty-options">
+                    <button class="difficulty-btn easy" onclick="startQuiz('easy')">
+                        <div class="difficulty-icon">🟢</div>
+                        <h3>Easy</h3>
+                        <p>Basic questions for beginners</p>
+                        <span class="question-count">15 questions</span>
+                    </button>
+
+                    <button class="difficulty-btn medium" onclick="startQuiz('medium')">
+                        <div class="difficulty-icon">🟡</div>
+                        <h3>Medium</h3>
+                        <p>Moderate difficulty questions</p>
+                        <span class="question-count">15 questions</span>
+                    </button>
+
+                    <button class="difficulty-btn hard" onclick="startQuiz('hard')">
+                        <div class="difficulty-icon">🔴</div>
+                        <h3>Hard</h3>
+                        <p>Challenging questions for experts</p>
+                        <span class="question-count">15 questions</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Quiz Container -->
+            <div class="tool-container" id="quizContainer" style="display: none;">
+
+                <div class="quiz-header">
+                    <h4 id="counter">Question 1 of 15</h4>
+                    <h4 id="timer">⏱️ Time: 15s</h4>
+                </div>
+
+                <div class="question-box">
+                    <h3 id="question">Loading question...</h3>
+                </div>
+
+                <button class="quiz-btn" onclick="selectAnswer('A')" id="btnA">A. Option</button>
+                <button class="quiz-btn" onclick="selectAnswer('B')" id="btnB">B. Option</button>
+                <button class="quiz-btn" onclick="selectAnswer('C')" id="btnC">C. Option</button>
+                <button class="quiz-btn" onclick="selectAnswer('D')" id="btnD">D. Option</button>
+
+                <div class="submit-section" id="submitSection" style="display: none;">
+                    <button class="btn btn-primary" onclick="checkAnswer(selectedAnswer)">Submit Answer</button>
+                </div>
+
+                <div id="scoreArea"></div>
+
+                <a href="index.html" class="back-link">← Back to Home</a>
+            </div>
 
     <script>
-        let time = 10;
-        let timerInterval;
+        // Quiz Questions Database
+        const quizQuestions = {
+            easy: [
+                { q: "What is 2 + 2?", A: "3", B: "4", C: "5", D: "6", correct: "B" },
+                { q: "Capital of India?", A: "Mumbai", B: "Delhi", C: "Kolkata", D: "Chennai", correct: "B" },
+                { q: "What is the color of the sky?", A: "Green", B: "Blue", C: "Red", D: "Yellow", correct: "B" },
+                { q: "How many days in a week?", A: "5", B: "6", C: "7", D: "8", correct: "C" },
+                { q: "Which animal is known as the King of Jungle?", A: "Tiger", B: "Lion", C: "Elephant", D: "Giraffe", correct: "B" },
+                { q: "What is the largest planet in our solar system?", A: "Earth", B: "Mars", C: "Jupiter", D: "Saturn", correct: "C" },
+                { q: "How many continents are there?", A: "5", B: "6", C: "7", D: "8", correct: "C" },
+                { q: "What color is an emerald?", A: "Red", B: "Blue", C: "Green", D: "Yellow", correct: "C" },
+                { q: "What do bees make?", A: "Milk", B: "Honey", C: "Sugar", D: "Juice", correct: "B" },
+                { q: "What is the freezing point of water?", A: "0°C", B: "100°C", C: "-10°C", D: "50°C", correct: "A" },
+                { q: "Which is bigger - Sun or Moon?", A: "Moon", B: "Sun", C: "Same size", D: "Depends on time", correct: "B" },
+                { q: "How many legs does a spider have?", A: "6", B: "8", C: "10", D: "12", correct: "B" },
+                { q: "What is the color of grass?", A: "Red", B: "Blue", C: "Green", D: "Yellow", correct: "C" },
+                { q: "Which planet is closest to the Sun?", A: "Venus", B: "Mars", C: "Mercury", D: "Earth", correct: "C" },
+                { q: "What do caterpillars turn into?", A: "Flies", B: "Butterflies", C: "Bees", D: "Moths", correct: "B" }
+            ],
+            medium: [
+                { q: "What is the chemical symbol for gold?", A: "Go", B: "Gd", C: "Au", D: "Ag", correct: "C" },
+                { q: "Who painted the Mona Lisa?", A: "Van Gogh", B: "Picasso", C: "Da Vinci", D: "Michelangelo", correct: "C" },
+                { q: "What is the capital of Australia?", A: "Sydney", B: "Melbourne", C: "Canberra", D: "Perth", correct: "C" },
+                { q: "What is the square root of 144?", A: "10", B: "12", C: "14", D: "16", correct: "B" },
+                { q: "Which programming language is known as 'Python'?", A: "Snake", B: "Programming language", C: "Both", D: "Neither", correct: "C" },
+                { q: "What is the longest river in the world?", A: "Amazon", B: "Nile", C: "Yangtze", D: "Mississippi", correct: "B" },
+                { q: "Which element has atomic number 1?", A: "Helium", B: "Hydrogen", C: "Lithium", D: "Carbon", correct: "B" },
+                { q: "What is the capital of Japan?", A: "Seoul", B: "Beijing", C: "Tokyo", D: "Bangkok", correct: "C" },
+                { q: "Who wrote 'Pride and Prejudice'?", A: "Emily Brontë", B: "Jane Austen", C: "Charlotte Brontë", D: "George Eliot", correct: "B" },
+                { q: "What is 15 × 12?", A: "160", B: "170", C: "180", D: "190", correct: "C" },
+                { q: "Which planet is known as the Red Planet?", A: "Venus", B: "Mars", C: "Jupiter", D: "Saturn", correct: "B" },
+                { q: "What is the currency of the United Kingdom?", A: "Euro", B: "Pound Sterling", C: "Dollar", D: "Franc", correct: "B" },
+                { q: "Who discovered penicillin?", A: "Pasteur", B: "Fleming", C: "Jenner", D: "Koch", correct: "B" },
+                { q: "What is the largest ocean on Earth?", A: "Atlantic", B: "Indian", C: "Arctic", D: "Pacific", correct: "D" },
+                { q: "Which vitamin is produced by sunlight?", A: "A", B: "B", C: "C", D: "D", correct: "D" }
+            ],
+            hard: [
+                { q: "What is the chemical formula for sulfuric acid?", A: "H2SO3", B: "H2SO4", C: "H2SO2", D: "HSO4", correct: "B" },
+                { q: "Who was the first woman to win a Nobel Prize?", A: "Marie Curie", B: "Rosalind Franklin", C: "Lise Meitner", D: "Irène Joliot-Curie", correct: "A" },
+                { q: "What is the capital of Bhutan?", A: "Kathmandu", B: "Dhaka", C: "Thimphu", D: "Colombo", correct: "C" },
+                { q: "What is the value of π (pi) to 3 decimal places?", A: "3.141", B: "3.142", C: "3.143", D: "3.144", correct: "B" },
+                { q: "Which programming paradigm does JavaScript primarily use?", A: "Procedural", B: "Object-oriented", C: "Functional", D: "All of the above", correct: "D" },
+                { q: "What is the deepest point in Earth's oceans?", A: "Mariana Trench", B: "Puerto Rico Trench", C: "Java Trench", D: "Peru-Chile Trench", correct: "A" },
+                { q: "Which element has the highest melting point?", A: "Tungsten", B: "Carbon", C: "Osmium", D: "Iridium", correct: "A" },
+                { q: "What is the capital of Kazakhstan?", A: "Almaty", B: "Astana", C: "Tashkent", D: "Bishkek", correct: "B" },
+                { q: "Who wrote 'One Hundred Years of Solitude'?", A: "Julio Cortázar", B: "Gabriel García Márquez", C: "Mario Vargas Llosa", D: "Pablo Neruda", correct: "B" },
+                { q: "What is 17³ (17 cubed)?", A: "4913", B: "4851", C: "4933", D: "4891", correct: "A" },
+                { q: "Which particle mediates the strong nuclear force?", A: "Photon", B: "Gluon", C: "W boson", D: "Higgs boson", correct: "B" },
+                { q: "What is the currency of Switzerland?", A: "Euro", B: "Franc", C: "Krone", D: "Mark", correct: "B" },
+                { q: "Who formulated the uncertainty principle?", A: "Einstein", B: "Bohr", C: "Heisenberg", D: "Schrödinger", correct: "C" },
+                { q: "What is the largest desert in the world?", A: "Sahara", B: "Arabian", C: "Gobi", D: "Antarctica", correct: "D" },
+                { q: "Which neurotransmitter is primarily associated with pleasure?", A: "Serotonin", B: "Dopamine", C: "Acetylcholine", D: "GABA", correct: "B" }
+            ]
+        };
 
-        let questions = [
-            {
-                q: "What is 2 + 2?",
-                A: "3",
-                B: "4",
-                C: "5",
-                D: "6",
-                correct: "B"
-            },
-            {
-                q: "Capital of India?",
-                A: "Mumbai",
-                B: "Delhi",
-                C: "Kolkata",
-                D: "Chennai",
-                correct: "B"
-            },
-            {
-                q: "What is the color of the sky?",
-                A: "Green",
-                B: "Blue",
-                C: "Red",
-                D: "Yellow",
-                correct: "B"
-            },
-            {
-                q: "How many days in a week?",
-                A: "5",
-                B: "6",
-                C: "7",
-                D: "8",
-                correct: "C"
-            },
-            {
-                q: "Which animal is known as the King of Jungle?",
-                A: "Tiger",
-                B: "Lion",
-                C: "Elephant",
-                D: "Giraffe",
-                correct: "B"
-            }
-        ];
-
+        let currentDifficulty = '';
+        let questions = [];
         let current = 0;
         let score = 0;
-        
-        function loadQuestion() {
-            let q = questions[current];
+        let time = 15;
+        let timerInterval;
+        let selectedAnswer = '';
 
-            document.getElementById("counter").innerText = "Question " + (current + 1) + " of " + questions.length;
+        function startQuiz(difficulty) {
+            currentDifficulty = difficulty;
+            questions = [...quizQuestions[difficulty]];
+
+            // Shuffle questions
+            questions = shuffleArray(questions);
+
+            document.getElementById('difficultyScreen').style.display = 'none';
+            document.getElementById('quizContainer').style.display = 'block';
+
+            current = 0;
+            score = 0;
+            loadQuestion();
+        }
+
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+            return array;
+        }
+
+        function loadQuestion() {
+            if (current >= questions.length) {
+                showFinalScore();
+                return;
+            }
+
+            let q = questions[current];
+            selectedAnswer = '';
+
+            document.getElementById("counter").innerText = `Question ${current + 1} of ${questions.length}`;
             document.getElementById("question").innerText = q.q;
-            document.getElementById("btnA").innerText = "A. " + q.A;
-            document.getElementById("btnB").innerText = "B. " + q.B;
-            document.getElementById("btnC").innerText = "C. " + q.C;
-            document.getElementById("btnD").innerText = "D. " + q.D;
+            document.getElementById("btnA").innerText = `A. ${q.A}`;
+            document.getElementById("btnB").innerText = `B. ${q.B}`;
+            document.getElementById("btnC").innerText = `C. ${q.C}`;
+            document.getElementById("btnD").innerText = `D. ${q.D}`;
+
+            // Reset button styles
+            document.querySelectorAll('.quiz-btn').forEach(btn => {
+                btn.classList.remove('selected');
+            });
 
             startTimer();
-        }        
+        }
 
         function startTimer() {
-            time = 10;
-            
+            time = 15;
+
             let timerElement = document.getElementById("timer");
             if (timerElement) {
-                timerElement.innerText = "⏱️ Time: " + time + "s";
+                timerElement.innerText = `⏱️ Time: ${time}s`;
             }
 
             clearInterval(timerInterval);
@@ -281,61 +804,158 @@
 
                 let timerElement = document.getElementById("timer");
                 if (timerElement) {
-                    timerElement.innerText = "⏱️ Time: " + time + "s";
+                    timerElement.innerText = `⏱️ Time: ${time}s`;
+
+                    // Change color when time is low
+                    if (time <= 5) {
+                        timerElement.style.color = '#ef4444';
+                    } else if (time <= 10) {
+                        timerElement.style.color = '#f59e0b';
+                    } else {
+                        timerElement.style.color = '#94a3b8';
+                    }
                 }
 
-                if (time === 0) {
+                if (time <= 0) {
                     clearInterval(timerInterval);
-                    checkAnswer("");
+                    checkAnswer("", true);
                 }
             }, 1000);
-        }  
+        }
 
-        function checkAnswer(ans) {
+        function selectAnswer(option) {
+            selectedAnswer = option;
+
+            // Highlight selected button
+            document.querySelectorAll('.quiz-btn').forEach(btn => {
+                btn.classList.remove('selected');
+            });
+            event.target.classList.add('selected');
+
+            // Show submit button
+            document.getElementById('submitSection').style.display = 'block';
+        }
+
+        function checkAnswer(ans, timeout = false) {
+            if (!ans && !timeout) return; // Wait for answer if not timeout
+
             clearInterval(timerInterval);
-            
-            let correct = questions[current].correct;
 
-            if (ans === correct) {
+            let correct = questions[current].correct;
+            let isCorrect = ans === correct;
+
+            if (isCorrect) {
                 score++;
-                alert("✅ Correct!");
-            } else if (ans !== "") {
-                alert("❌ Wrong! Correct answer was: " + correct);
+            }
+
+            showAnswerScreen(isCorrect, correct, timeout);
+        }
+
+        function showAnswerScreen(isCorrect, correctAnswer, timeout) {
+            let icon, title, message, bgColor;
+
+            if (timeout) {
+                icon = "⏰";
+                title = "Time's Up!";
+                message = "You ran out of time.";
+                bgColor = "#f59e0b";
+            } else if (isCorrect) {
+                icon = "✅";
+                title = "Correct!";
+                message = "Great job!";
+                bgColor = "#22c55e";
             } else {
-                alert("⏰ Time's up!");
+                icon = "❌";
+                title = "Wrong Answer";
+                message = "Better luck next time!";
+                bgColor = "#ef4444";
+            }
+
+            let overlay = document.createElement('div');
+            overlay.className = 'answer-overlay';
+            overlay.innerHTML = `
+                <div class="answer-card">
+                    <div class="answer-icon" style="color: ${bgColor}">${icon}</div>
+                    <h2 class="answer-title" style="color: ${bgColor}">${title}</h2>
+                    <p class="answer-text">${message}</p>
+                    ${!isCorrect || timeout ? `<div class="correct-answer">Correct answer: ${getAnswerText(correctAnswer)}</div>` : ''}
+                    <button class="answer-btn" onclick="nextQuestion()">Next Question →</button>
+                </div>
+            `;
+
+            document.body.appendChild(overlay);
+        }
+
+        function getAnswerText(answer) {
+            let q = questions[current];
+            switch(answer) {
+                case 'A': return q.A;
+                case 'B': return q.B;
+                case 'C': return q.C;
+                case 'D': return q.D;
+                default: return answer;
+            }
+        }
+
+        function nextQuestion() {
+            // Remove overlay
+            let overlay = document.querySelector('.answer-overlay');
+            if (overlay) {
+                overlay.remove();
             }
 
             current++;
-
-            if (current < questions.length) {
-                loadQuestion();
-            } else {
-                showFinalScore();
-            }
+            loadQuestion();
         }
 
         function showFinalScore() {
             let percentage = Math.round((score / questions.length) * 100);
-            let emoji = percentage >= 80 ? "🎉" : percentage >= 50 ? "👍" : "💪";
-            
+            let emoji = percentage >= 90 ? "🏆" : percentage >= 80 ? "🎉" : percentage >= 70 ? "👏" : percentage >= 50 ? "👍" : "💪";
+
             document.getElementById("quizContainer").innerHTML = `
                 <div class="score-display">
                     <h1>Quiz Complete!</h1>
+                    <div class="difficulty-badge ${currentDifficulty}">${currentDifficulty.charAt(0).toUpperCase() + currentDifficulty.slice(1)} Level</div>
                     <h2>${score} / ${questions.length}</h2>
                     <p style="color: #94a3b8; font-size: 18px;">You got ${percentage}% correct ${emoji}</p>
-                    <button class="btn-restart" onclick="location.reload()">🔄 Play Again</button>
-                    <br><br>
-                    <a href="index.html" class="back-link">← Back to Home</a>
+                    <div class="score-message">
+                        ${percentage >= 90 ? "Outstanding performance! 🏆" :
+                          percentage >= 80 ? "Excellent work! 🎉" :
+                          percentage >= 70 ? "Great job! 👏" :
+                          percentage >= 50 ? "Good effort! 👍" :
+                          "Keep practicing! 💪"}
+                    </div>
+                    <div class="action-buttons">
+                        <button class="btn-restart" onclick="restartQuiz()">🔄 Play Again</button>
+                        <button class="btn-secondary" onclick="changeDifficulty()">⚡ Change Difficulty</button>
+                    </div>
+                    <br>
+                    <a href="index.html" class="back-link">← Back to Dashboard</a>
                 </div>
             `;
         }
 
-        loadQuestion();
+        function restartQuiz() {
+            startQuiz(currentDifficulty);
+        }
+
+        function changeDifficulty() {
+            document.getElementById('quizContainer').style.display = 'none';
+            document.getElementById('difficultyScreen').style.display = 'block';
+            document.getElementById('scoreArea').innerHTML = '';
+        }
     </script>
 
-    <footer>
-        <p>Made by me 😎 | More tools coming soon</p>
-    </footer>
+            </div>
+        </main>
+
+        <!-- Tool Footer -->
+        <footer class="tool-footer">
+            <div class="tool-footer-content">
+                <p>Built with ❤️ by SG SURYAN</p>
+            </div>
+        </footer>
+    </div>
 
 </body>
 </html>
