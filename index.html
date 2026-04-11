@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Free Online Multi Tool Website for Students - ToolDash</title>
-    <meta name="description" content="🚀 ToolDash - Your Daily Use Hub! 50+ free tools in one place: password generator, calculator, random picker, AI quiz, and more. The ultimate toolkit students share with friends!">
+    <meta name="description" content="🚀 ToolDash Daily Use Hub - 8 Essential Tools in One Click! Password generator, calculator, coin flip, decision maker & more. The toolkit every student needs! 🔥 50+ total tools.">
     <meta name="keywords" content="free online tools, student tools, AI quiz, password generator, text formatter, calculator, games, productivity tools, decision maker, spin wheel">
     <meta name="author" content="SG SURYAN">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -99,6 +99,58 @@
                 <div class="hub-header">
                     <h2>⚡ Daily Use Hub</h2>
                     <p>Your everyday tools in one click - the reason everyone loves ToolDash!</p>
+                </div>
+
+                <div class="quick-tools-grid">
+                    <div class="quick-tool" onclick="window.location.href='password.html'">
+                        <div class="quick-icon">🔐</div>
+                        <span>Password</span>
+                    </div>
+                    <div class="quick-tool" onclick="window.location.href='calculator.html'">
+                        <div class="quick-icon">🧮</div>
+                        <span>Calculator</span>
+                    </div>
+                    <div class="quick-tool" onclick="window.location.href='random.html'">
+                        <div class="quick-icon">🎲</div>
+                        <span>Random</span>
+                    </div>
+                    <div class="quick-tool" onclick="window.location.href='coinflip.html'">
+                        <div class="quick-icon">🪙</div>
+                        <span>Coin Flip</span>
+                    </div>
+                    <div class="quick-tool" onclick="window.location.href='text-formatter.html'">
+                        <div class="quick-icon">📝</div>
+                        <span>Text Format</span>
+                    </div>
+                    <div class="quick-tool" onclick="window.location.href='timer.html'">
+                        <div class="quick-icon">⏱️</div>
+                        <span>Timer</span>
+                    </div>
+                    <div class="quick-tool" onclick="window.location.href='converter.html'">
+                        <div class="quick-icon">🔄</div>
+                        <span>Converter</span>
+                    </div>
+                    <div class="quick-tool" onclick="makeDecision()">
+                        <div class="quick-icon">🤔</div>
+                        <span>Decide</span>
+                    </div>
+                </div>
+
+                <div class="hub-share">
+                    <p>💡 Share this with friends who need quick tools daily!</p>
+                    <button class="share-btn" onclick="shareDailyHub()">📤 Share Hub</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- DAILY USE HUB - STAR FEATURE -->
+        <section class="daily-hub-section star-feature">
+            <div class="daily-hub-container">
+                <div class="hub-header">
+                    <div class="hub-badge">🔥 Most Popular</div>
+                    <h2>⚡ Daily Use Hub</h2>
+                    <p>Your everyday tools in one click - the reason everyone loves ToolDash!</p>
+                    <button class="hub-cta" onclick="scrollToHub()">Try Now ⚡</button>
                 </div>
 
                 <div class="quick-tools-grid">
@@ -1131,6 +1183,14 @@
                 navigator.clipboard.writeText(shareText + " " + shareUrl).then(() => {
                     alert('🔗 Link copied! Share with your friends!');
                 });
+            }
+        }
+
+        // Scroll to Daily Hub
+        function scrollToHub() {
+            const hubSection = document.querySelector('.daily-hub-section');
+            if (hubSection) {
+                hubSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
             }
         }
     </script>
