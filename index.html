@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Free Online Multi Tool Website for Students - ToolDash</title>
-    <meta name="description" content="Use free tools, games, and utilities online easily. 50+ tools for students: AI quiz, password generator, text formatter, calculator, and more. No signup required!">
+    <meta name="description" content="🚀 ToolDash - Your Daily Use Hub! 50+ free tools in one place: password generator, calculator, random picker, AI quiz, and more. The ultimate toolkit students share with friends!">
     <meta name="keywords" content="free online tools, student tools, AI quiz, password generator, text formatter, calculator, games, productivity tools, decision maker, spin wheel">
     <meta name="author" content="SG SURYAN">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -60,8 +60,11 @@
                     Productivity tools, fun games, AI helpers & more. Join 15,000+ students already using ToolDash daily!
                 </p>
                 <div class="hero-actions">
+                    <button class="hero-cta-primary" onclick="window.location.href='quiz.html'">
+                        🔥 Try Most Popular Tool
+                    </button>
                     <button class="hero-cta" onclick="try{scrollToTools()}catch(e){document.getElementById('dashboardContent').scrollIntoView(true)}">
-                        🚀 Start Using Now
+                        🚀 Explore All Tools
                     </button>
                     <div class="hero-stats">
                         <div class="stat-item">
@@ -86,6 +89,56 @@
                     <div class="floating-tool tool-3">🎮</div>
                     <div class="floating-tool tool-4">🎲</div>
                     <div class="floating-tool tool-5">🤖</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- DAILY USE HUB - SIGNATURE FEATURE -->
+        <section class="daily-hub-section">
+            <div class="daily-hub-container">
+                <div class="hub-header">
+                    <h2>⚡ Daily Use Hub</h2>
+                    <p>Your everyday tools in one click - the reason everyone loves ToolDash!</p>
+                </div>
+
+                <div class="quick-tools-grid">
+                    <div class="quick-tool" onclick="window.location.href='password.html'">
+                        <div class="quick-icon">🔐</div>
+                        <span>Password</span>
+                    </div>
+                    <div class="quick-tool" onclick="window.location.href='calculator.html'">
+                        <div class="quick-icon">🧮</div>
+                        <span>Calculator</span>
+                    </div>
+                    <div class="quick-tool" onclick="window.location.href='random.html'">
+                        <div class="quick-icon">🎲</div>
+                        <span>Random</span>
+                    </div>
+                    <div class="quick-tool" onclick="window.location.href='coinflip.html'">
+                        <div class="quick-icon">🪙</div>
+                        <span>Coin Flip</span>
+                    </div>
+                    <div class="quick-tool" onclick="window.location.href='text-formatter.html'">
+                        <div class="quick-icon">📝</div>
+                        <span>Text Format</span>
+                    </div>
+                    <div class="quick-tool" onclick="window.location.href='timer.html'">
+                        <div class="quick-icon">⏱️</div>
+                        <span>Timer</span>
+                    </div>
+                    <div class="quick-tool" onclick="window.location.href='converter.html'">
+                        <div class="quick-icon">🔄</div>
+                        <span>Converter</span>
+                    </div>
+                    <div class="quick-tool" onclick="makeDecision()">
+                        <div class="quick-icon">🤔</div>
+                        <span>Decide</span>
+                    </div>
+                </div>
+
+                <div class="hub-share">
+                    <p>💡 Share this with friends who need quick tools daily!</p>
+                    <button class="share-btn" onclick="shareDailyHub()">📤 Share Hub</button>
                 </div>
             </div>
         </section>
@@ -146,15 +199,15 @@
         <!-- DASHBOARD CONTENT -->
         <main class="dashboard-content" id="dashboardContent">
 
-            <!-- FEATURED TOOLS -->
+            <!-- FEATURED TOOLS - PREMIUM SIZE -->
             <section class="featured-section">
-                <h2>🚀 Featured Tools</h2>
+                <h2>⭐ Premium Featured Tools</h2>
                 <div class="featured-grid">
-                    <div class="featured-card" onclick="window.location.href='quiz.html'">
+                    <div class="featured-card featured-large" onclick="window.location.href='quiz.html'">
                         <div class="featured-icon">🧠</div>
                         <div class="featured-content">
                             <h3>AI Quiz Master</h3>
-                            <p>Test your knowledge with 45+ questions across 3 difficulty levels</p>
+                            <p>Test your knowledge with 45+ questions across 3 difficulty levels. Challenge yourself!</p>
                             <span class="featured-badge">Most Popular</span>
                         </div>
                     </div>
@@ -164,7 +217,7 @@
                         <div class="featured-content">
                             <h3>AI Text Generator</h3>
                             <p>Create essays, stories, and content with AI assistance</p>
-                            <span class="featured-badge">New</span>
+                            <span class="featured-badge">Trending</span>
                         </div>
                     </div>
 
@@ -173,7 +226,7 @@
                         <div class="featured-content">
                             <h3>Party Games Hub</h3>
                             <p>Truth or Dare, Never Have I Ever, and more party games</p>
-                            <span class="featured-badge">Fun</span>
+                            <span class="featured-badge">Viral Fun</span>
                         </div>
                     </div>
                 </div>
@@ -1060,6 +1113,25 @@
                 const randomAnswer = answers[Math.floor(Math.random() * answers.length)];
                 result.innerHTML = `<div class="decision-answer">${randomAnswer}</div>`;
             }, 1500);
+        }
+
+        // Share Daily Hub Functionality
+        function shareDailyHub() {
+            const shareText = "🚀 Check out ToolDash's Daily Use Hub - all my favorite tools in one place! Password generator, calculator, random picker, and more. So convenient! 🔥 https://tooldash.com";
+            const shareUrl = "https://tooldash.com";
+
+            if (navigator.share) {
+                navigator.share({
+                    title: 'ToolDash Daily Use Hub',
+                    text: shareText,
+                    url: shareUrl,
+                });
+            } else {
+                // Fallback: copy to clipboard
+                navigator.clipboard.writeText(shareText + " " + shareUrl).then(() => {
+                    alert('🔗 Link copied! Share with your friends!');
+                });
+            }
         }
     </script>
 
