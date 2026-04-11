@@ -1,21 +1,14 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Truth or Dare</title>
-
+    <link rel="stylesheet" href="style.css">
     <style>
+        /* Override body padding for this page since tool container handles it */
         body {
-            font-family: Arial;
-            text-align: center;
-            background: radial-gradient(circle at top, #0f172a, #000);
-            color: white;
-            padding: 20px;
-            animation: fadeIn 1s ease-in;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
+            padding: 20px 10px;
         }
 
         h1 {
@@ -91,19 +84,43 @@
         /* MOBILE */
         @media (max-width: 600px) {
             .card {
-                width: 90%;
-                padding: 20px;
+                width: calc(100% - 40px);
+                padding: 25px 15px;
+                margin: 0 15px;
             }
 
             button {
-                width: 80%;
-                font-size: 16px;
+                width: 100%;
+                max-width: 200px;
+                font-size: 18px;
+                min-height: 55px;
+                margin: 10px 5px;
+                padding: 18px 25px;
+            }
+
+            h1 {
+                font-size: 26px;
+            }
+
+            #result {
+                font-size: 18px;
+                padding: 15px;
             }
         }
     </style>
 </head>
 
 <body>
+
+    <!-- NAVBAR -->
+    <nav>
+        <h2>⚡ MultiTool</h2>
+        <div>
+            <a href="index.html">Home</a>
+            <a href="#">Tools</a>
+            <a href="#">About</a>
+        </div>
+    </nav>
 
     <h1>🎮 Truth or Dare</h1>
 
@@ -115,6 +132,10 @@
 
         <button class="next" onclick="next()">Next ➡️</button>
     </div>
+
+    <footer>
+        <p>Made by me 😎 | More tools coming soon</p>
+    </footer>
 
     <script>
         let truths = [

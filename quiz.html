@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Quiz App</title>
     <link rel="stylesheet" href="style.css">
     <style>
@@ -110,6 +112,59 @@
 
         .back-link:hover {
             text-decoration: underline;
+        }
+
+        /* MOBILE RESPONSIVE */
+        @media (max-width: 600px) {
+            .tool-container {
+                width: calc(100% - 40px);
+                padding: 20px 15px;
+                margin: 30px 15px;
+            }
+
+            .quiz-header {
+                flex-direction: column;
+                gap: 10px;
+                text-align: center;
+            }
+
+            .question-box {
+                padding: 20px 15px;
+            }
+
+            .question-box h3 {
+                font-size: 18px;
+            }
+
+            .quiz-btn {
+                padding: 18px 15px;
+                font-size: 16px;
+                min-height: 50px;
+            }
+
+            .score-display h2 {
+                font-size: 36px;
+            }
+
+            .btn-restart {
+                width: 100%;
+                max-width: 250px;
+                min-height: 50px;
+                font-size: 18px;
+            }
+
+            nav {
+                flex-direction: column;
+                gap: 10px;
+                padding: 12px;
+            }
+
+            nav > div {
+                display: flex;
+                gap: 10px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
         }
     </style>
 
