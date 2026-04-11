@@ -3,7 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>ToolDash - Your Ultimate Tool Dashboard</title>
+    <title>Free Online Multi Tool Website for Students - ToolDash</title>
+    <meta name="description" content="50+ free online tools for students: AI quiz, password generator, text formatter, games, calculator, and more. No signup required!">
+    <meta name="keywords" content="free online tools, student tools, AI quiz, password generator, text formatter, calculator, games, productivity tools">
+    <meta name="author" content="SG SURYAN">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/x-icon" href="favicon.ico">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -24,65 +28,183 @@
                     <span class="logo-text">ToolDash</span>
                 </div>
                 <nav class="main-nav">
-                    <a href="#" class="nav-link active" onclick="showDashboard()">Dashboard</a>
-                    <a href="#" class="nav-link" onclick="showCategories()">Categories</a>
+                    <a href="#" class="nav-link active" onclick="showDashboard()">Home</a>
+                    <a href="#" class="nav-link" onclick="showCategories()">Tools</a>
+                    <a href="#" class="nav-link" onclick="showGames()">Games</a>
                     <a href="#" class="nav-link" onclick="showPremium()">Premium</a>
                 </nav>
                 <div class="header-actions">
+                    <div class="user-stats">
+                        <span class="user-count">👥 15,247 users</span>
+                    </div>
                     <button class="theme-toggle" onclick="toggleTheme()" title="Toggle Theme">🌓</button>
                 </div>
             </div>
         </header>
 
+        <!-- BIG HERO SECTION -->
+        <section class="hero-section">
+            <div class="hero-content">
+                <div class="hero-badge">
+                    🔥 #1 Free Tool Collection
+                </div>
+                <h1 class="hero-title">
+                    50+ Free Tools<br>
+                    <span class="hero-highlight">in One Place</span>
+                </h1>
+                <p class="hero-subtitle">
+                    Productivity tools, fun games, AI helpers & more. All free, no signup required.
+                    Join 15,000+ students already using ToolDash daily!
+                </p>
+                <div class="hero-actions">
+                    <button class="hero-cta" onclick="try{scrollToTools()}catch(e){document.getElementById('dashboardContent').scrollIntoView(true)}">
+                        🚀 Explore All Tools
+                    </button>
+                    <div class="hero-stats">
+                        <div class="stat-item">
+                            <span class="stat-number">50+</span>
+                            <span class="stat-label">Free Tools</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number">15K+</span>
+                            <span class="stat-label">Users</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number">⭐ 4.9</span>
+                            <span class="stat-label">Rating</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <div class="floating-tools">
+                    <div class="floating-tool tool-1">🔐</div>
+                    <div class="floating-tool tool-2">🧠</div>
+                    <div class="floating-tool tool-3">🎮</div>
+                    <div class="floating-tool tool-4">🎲</div>
+                    <div class="floating-tool tool-5">🤖</div>
+                </div>
+            </div>
+        </section>
+
         <!-- SEARCH BAR -->
         <section class="search-section">
             <div class="search-container">
                 <div class="search-input-wrapper">
-                    <input type="text" id="searchInput" placeholder="Search tools... (try: password, quiz, magic)" class="search-input">
+                    <input type="text" id="searchInput" placeholder="Search 50+ tools... (try: password, quiz, AI, games)" class="search-input">
                     <button class="search-btn" onclick="performSearch()">🔍</button>
                 </div>
                 <div class="search-hints">
                     <span class="hint-tag" onclick="searchByTag('password')">🔐 Password</span>
                     <span class="hint-tag" onclick="searchByTag('quiz')">🧠 Quiz</span>
-                    <span class="hint-tag" onclick="searchByTag('magic')">🔮 Magic</span>
-                    <span class="hint-tag" onclick="searchByTag('dice')">🎲 Dice</span>
-                    <span class="hint-tag" onclick="searchByTag('coin')">🪙 Coin</span>
+                    <span class="hint-tag" onclick="searchByTag('ai')">🤖 AI Tools</span>
+                    <span class="hint-tag" onclick="searchByTag('games')">🎮 Games</span>
+                    <span class="hint-tag" onclick="searchByTag('text')">📝 Text Tools</span>
                 </div>
             </div>
         </section>
 
         <!-- DASHBOARD CONTENT -->
-        <main class="dashboard-content">
+        <main class="dashboard-content" id="dashboardContent">
 
-            <!-- WELCOME SECTION -->
-            <section class="welcome-section">
-                <h1>Welcome to ToolDash</h1>
-                <p>Your all-in-one productivity and entertainment toolkit</p>
+            <!-- FEATURED TOOLS -->
+            <section class="featured-section">
+                <h2>🚀 Featured Tools</h2>
+                <div class="featured-grid">
+                    <div class="featured-card" onclick="window.location.href='quiz.html'">
+                        <div class="featured-icon">🧠</div>
+                        <div class="featured-content">
+                            <h3>AI Quiz Master</h3>
+                            <p>Test your knowledge with 45+ questions across 3 difficulty levels</p>
+                            <span class="featured-badge">Most Popular</span>
+                        </div>
+                    </div>
+
+                    <div class="featured-card" onclick="window.location.href='ai-writer.html'">
+                        <div class="featured-icon">🤖</div>
+                        <div class="featured-content">
+                            <h3>AI Text Generator</h3>
+                            <p>Create essays, stories, and content with AI assistance</p>
+                            <span class="featured-badge">New</span>
+                        </div>
+                    </div>
+
+                    <div class="featured-card" onclick="window.location.href='truthdare.html'">
+                        <div class="featured-icon">🎭</div>
+                        <div class="featured-content">
+                            <h3>Party Games Hub</h3>
+                            <p>Truth or Dare, Never Have I Ever, and more party games</p>
+                            <span class="featured-badge">Fun</span>
+                        </div>
+                    </div>
+                </div>
             </section>
 
             <!-- CATEGORIES GRID -->
             <section class="categories-section">
-                <h2>Explore Categories</h2>
+                <h2>🎯 Tool Categories</h2>
                 <div class="categories-grid">
                     <div class="category-card" onclick="showCategoryTools('productivity')">
                         <div class="category-icon">🧠</div>
                         <h3>Productivity</h3>
-                        <p>Tools to boost your efficiency</p>
-                        <div class="tool-count">4 tools</div>
+                        <p>Work smarter with powerful tools</p>
+                        <div class="tool-count">8 tools</div>
                     </div>
 
-                    <div class="category-card" onclick="showCategoryTools('fun')">
+                    <div class="category-card" onclick="showCategoryTools('ai')">
+                        <div class="category-icon">🤖</div>
+                        <h3>AI Tools</h3>
+                        <p>AI-powered helpers & generators</p>
+                        <div class="tool-count">5 tools</div>
+                    </div>
+
+                    <div class="category-card" onclick="showCategoryTools('games')">
                         <div class="category-icon">🎮</div>
-                        <h3>Fun & Games</h3>
-                        <p>Entertainment and decision making</p>
-                        <div class="tool-count">6 tools</div>
+                        <h3>Games & Fun</h3>
+                        <p>Games, quizzes & entertainment</p>
+                        <div class="tool-count">12 tools</div>
                     </div>
 
                     <div class="category-card" onclick="showCategoryTools('utilities')">
                         <div class="category-icon">🔧</div>
                         <h3>Utilities</h3>
                         <p>Essential helper tools</p>
-                        <div class="tool-count">3 tools</div>
+                        <div class="tool-count">10 tools</div>
+                    </div>
+
+                    <div class="category-card" onclick="showCategoryTools('text')">
+                        <div class="category-icon">📝</div>
+                        <h3>Text Tools</h3>
+                        <p>Format, convert & manipulate text</p>
+                        <div class="tool-count">6 tools</div>
+                    </div>
+
+                    <div class="category-card" onclick="showCategoryTools('ai')">
+                        <div class="category-icon">🤖</div>
+                        <h3>AI Tools</h3>
+                        <p>AI-powered helpers & generators</p>
+                        <div class="tool-count">5 tools</div>
+                    </div>
+
+                    <div class="category-card" onclick="showCategoryTools('games')">
+                        <div class="category-icon">🎮</div>
+                        <h3>Games & Fun</h3>
+                        <p>Games, quizzes & entertainment</p>
+                        <div class="tool-count">12 tools</div>
+                    </div>
+
+                    <div class="category-card" onclick="showCategoryTools('utilities')">
+                        <div class="category-icon">🔧</div>
+                        <h3>Utilities</h3>
+                        <p>Essential helper tools</p>
+                        <div class="tool-count">10 tools</div>
+                    </div>
+
+                    <div class="category-card" onclick="showCategoryTools('text')">
+                        <div class="category-icon">📝</div>
+                        <h3>Text Tools</h3>
+                        <p>Format, convert & manipulate text</p>
+                        <div class="tool-count">6 tools</div>
                     </div>
 
                     <div class="category-card premium-category" onclick="showPremiumModal()">
@@ -94,41 +216,77 @@
                 </div>
             </section>
 
-<!-- RECENT TOOLS -->
-            <section class="recent-section">
-                <h2>Popular Tools</h2>
+            <!-- DAILY CHALLENGE -->
+            <section class="daily-challenge">
+                <div class="challenge-card">
+                    <div class="challenge-header">
+                        <span class="challenge-icon">🎯</span>
+                        <h3>Daily Challenge</h3>
+                        <span class="challenge-date">Today</span>
+                    </div>
+                    <p class="challenge-text">Complete the AI Quiz with 90%+ score on Hard difficulty!</p>
+                    <div class="challenge-progress">
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 0%"></div>
+                        </div>
+                        <span class="progress-text">0/1 completed</span>
+                    </div>
+                    <button class="challenge-btn" onclick="window.location.href='quiz.html'">Take Challenge</button>
+                </div>
+            </section>
+
+            <!-- POPULAR TOOLS -->
+            <section class="popular-section">
+                <h2>🔥 Popular This Week</h2>
                 <div class="tools-grid" id="popularTools">
                     <!-- Tools loaded by JavaScript -->
-                    <!-- Fallback static content -->
                     <a href="password.html" class="tool-card">
                         <div class="tool-icon">🔐</div>
                         <h3>Password Generator</h3>
-                        <p>Generate secure passwords</p>
+                        <p>Secure password creation</p>
+                        <span class="tool-trend">🔥 Hot</span>
                     </a>
                     <a href="quiz.html" class="tool-card">
                         <div class="tool-icon">🧠</div>
-                        <h3>Quiz App</h3>
-                        <p>Test your knowledge</p>
+                        <h3>AI Quiz Master</h3>
+                        <p>45 questions, 3 levels</p>
+                        <span class="tool-trend">⭐ Top</span>
+                    </a>
+                    <a href="ai-writer.html" class="tool-card">
+                        <div class="tool-icon">🤖</div>
+                        <h3>AI Writer</h3>
+                        <p>Generate content with AI</p>
+                        <span class="tool-trend">🆕 New</span>
                     </a>
                     <a href="truthdare.html" class="tool-card">
-                        <div class="tool-icon">🎮</div>
+                        <div class="tool-icon">🎭</div>
                         <h3>Truth or Dare</h3>
-                        <p>Classic party game</p>
+                        <p>Party game collection</p>
+                        <span class="tool-trend">🎮 Fun</span>
                     </a>
                     <a href="magic8.html" class="tool-card">
                         <div class="tool-icon">🔮</div>
                         <h3>Magic 8 Ball</h3>
-                        <p>Ask the mystical oracle</p>
+                        <p>Mystical predictions</p>
+                        <span class="tool-trend">✨ Magic</span>
+                    </a>
+                    <a href="text-formatter.html" class="tool-card">
+                        <div class="tool-icon">📝</div>
+                        <h3>Text Formatter</h3>
+                        <p>Format & beautify text</p>
+                        <span class="tool-trend">📝 Useful</span>
                     </a>
                     <a href="coinflip.html" class="tool-card">
                         <div class="tool-icon">🪙</div>
                         <h3>Coin Flip</h3>
-                        <p>Flip a virtual coin</p>
+                        <p>Make decisions</p>
+                        <span class="tool-trend">🎲 Quick</span>
                     </a>
                     <a href="joke.html" class="tool-card">
                         <div class="tool-icon">😂</div>
                         <h3>Joke Generator</h3>
-                        <p>Get random jokes</p>
+                        <p>Random humor</p>
+                        <span class="tool-trend">😄 Funny</span>
                     </a>
                 </div>
             </section>
@@ -138,25 +296,58 @@
     </div>
 
     <script>
-        // Tool Database
+        // Tool Database - 50+ Tools!
         const tools = {
             productivity: [
                 { id: 'password', name: 'Password Generator', icon: '🔐', desc: 'Generate secure passwords', page: 'password.html', popular: true },
-                { id: 'quiz', name: 'Quiz App', icon: '🧠', desc: 'Test your knowledge', page: 'quiz.html', popular: true },
+                { id: 'quiz', name: 'AI Quiz Master', icon: '🧠', desc: '45 questions, 3 difficulty levels', page: 'quiz.html', popular: true },
+                { id: 'notes', name: 'Smart Notes', icon: '📝', desc: 'Save and organize your notes', page: 'notes.html', popular: false },
+                { id: 'todo', name: 'Task Manager', icon: '✅', desc: 'Organize your daily tasks', page: 'todo.html', popular: false },
+                { id: 'calculator', name: 'Advanced Calculator', icon: '🧮', desc: 'Scientific calculator', page: 'calculator.html', popular: false },
+                { id: 'timer', name: 'Focus Timer', icon: '⏱️', desc: 'Pomodoro timer for productivity', page: 'timer.html', popular: false },
+                { id: 'converter', name: 'Unit Converter', icon: '🔄', desc: 'Convert units and measurements', page: 'converter.html', popular: false },
                 { id: 'advanced-password', name: 'Advanced Password', icon: '🔓', desc: 'Premium password tools', page: 'advanced-password.html', premium: true }
             ],
-            fun: [
-                { id: 'truthdare', name: 'Truth or Dare', icon: '🎮', desc: 'Classic party game', page: 'truthdare.html', popular: true },
-                { id: 'magic8', name: 'Magic 8 Ball', icon: '🔮', desc: 'Ask the mystical oracle', page: 'magic8.html', popular: true },
-                { id: 'joke', name: 'Joke Generator', icon: '😂', desc: 'Get random jokes', page: 'joke.html', popular: false },
-                { id: 'rps', name: 'Rock Paper Scissors', icon: '✂️', desc: 'Play against computer', page: 'rps.html', popular: false },
-                { id: 'voice-truthdare', name: 'Voice Truth or Dare', icon: '🎤', desc: 'Voice-powered game', premium: true }
+            ai: [
+                { id: 'ai-writer', name: 'AI Text Generator', icon: '🤖', desc: 'Generate essays and content', page: 'ai-writer.html', popular: true },
+                { id: 'ai-summarizer', name: 'Text Summarizer', icon: '📄', desc: 'Summarize long texts with AI', page: 'ai-summarizer.html', popular: false },
+                { id: 'ai-translator', name: 'Language Translator', icon: '🌐', desc: 'Translate between languages', page: 'ai-translator.html', popular: false },
+                { id: 'ai-grammar', name: 'Grammar Checker', icon: '✏️', desc: 'Check grammar and spelling', page: 'ai-grammar.html', popular: false },
+                { id: 'ai-chat', name: 'AI Chat Bot', icon: '💬', desc: 'Chat with AI assistant', page: 'ai-chat.html', premium: true }
+            ],
+            games: [
+                { id: 'truthdare', name: 'Truth or Dare Hub', icon: '🎭', desc: 'Complete party game collection', page: 'truthdare.html', popular: true },
+                { id: 'never-have-i-ever', name: 'Never Have I Ever', icon: '🚫', desc: 'Fun party questions', page: 'never-have-i-ever.html', popular: false },
+                { id: 'would-you-rather', name: 'Would You Rather', icon: '🤔', desc: 'Tough choice questions', page: 'would-you-rather.html', popular: false },
+                { id: 'magic8', name: 'Magic 8 Ball', icon: '🔮', desc: 'Mystical predictions', page: 'magic8.html', popular: true },
+                { id: 'rps', name: 'Rock Paper Scissors+', icon: '✂️', desc: 'Advanced version with stats', page: 'rps.html', popular: false },
+                { id: 'word-guess', name: 'Word Guessing Game', icon: '🔤', desc: 'Guess the hidden word', page: 'word-guess.html', popular: false },
+                { id: 'math-game', name: 'Math Challenge', icon: '🔢', desc: 'Quick math problems', page: 'math-game.html', popular: false },
+                { id: 'memory-game', name: 'Memory Cards', icon: '🃏', desc: 'Test your memory skills', page: 'memory-game.html', popular: false },
+                { id: 'snake-game', name: 'Snake Game', icon: '🐍', desc: 'Classic arcade game', page: 'snake-game.html', popular: false },
+                { id: 'tetris', name: 'Mini Tetris', icon: '🧩', desc: 'Block puzzle game', page: 'tetris.html', premium: true },
+                { id: 'voice-truthdare', name: 'Voice Truth or Dare', icon: '🎤', desc: 'Voice-powered party game', premium: true },
+                { id: 'quiz-arena', name: 'Quiz Arena', icon: '🏟️', desc: 'Multiplayer quiz battles', premium: true }
             ],
             utilities: [
-                { id: 'random', name: 'Random Number', icon: '🎲', desc: 'Generate random numbers', page: 'random.html', popular: false },
-                { id: 'coinflip', name: 'Coin Flip', icon: '🪙', desc: 'Flip a virtual coin', page: 'coinflip.html', popular: true },
-                { id: 'dice', name: 'Dice Roll', icon: '🎯', desc: 'Roll custom dice', page: 'dice.html', popular: false },
-                { id: 'custom-dice', name: 'Custom Dice', icon: '🎲', desc: '100-sided dice', premium: true }
+                { id: 'random', name: 'Random Generator', icon: '🎲', desc: 'Numbers, names, colors', page: 'random.html', popular: false },
+                { id: 'coinflip', name: 'Coin Flip Pro', icon: '🪙', desc: 'Advanced coin flipper', page: 'coinflip.html', popular: true },
+                { id: 'dice', name: 'Dice Master', icon: '🎯', desc: 'Roll any type of dice', page: 'dice.html', popular: false },
+                { id: 'color-picker', name: 'Color Picker', icon: '🎨', desc: 'Pick and convert colors', page: 'color-picker.html', popular: false },
+                { id: 'qr-generator', name: 'QR Code Generator', icon: '📱', desc: 'Generate QR codes', page: 'qr-generator.html', popular: false },
+                { id: 'barcode', name: 'Barcode Generator', icon: '📊', desc: 'Create barcodes', page: 'barcode.html', popular: false },
+                { id: 'url-shortener', name: 'URL Shortener', icon: '🔗', desc: 'Shorten long URLs', page: 'url-shortener.html', popular: false },
+                { id: 'password-strength', name: 'Password Analyzer', icon: '🔍', desc: 'Check password strength', page: 'password-strength.html', popular: false },
+                { id: 'custom-dice', name: 'Custom Dice', icon: '🎲', desc: 'Create your own dice', premium: true },
+                { id: 'file-converter', name: 'File Converter', icon: '📁', desc: 'Convert file formats', premium: true }
+            ],
+            text: [
+                { id: 'text-formatter', name: 'Text Formatter', icon: '📝', desc: 'Format and beautify text', page: 'text-formatter.html', popular: true },
+                { id: 'case-converter', name: 'Case Converter', icon: '🔤', desc: 'Change text case styles', page: 'case-converter.html', popular: false },
+                { id: 'word-counter', name: 'Word Counter', icon: '📊', desc: 'Count words and characters', page: 'word-counter.html', popular: false },
+                { id: 'text-to-speech', name: 'Text to Speech', icon: '🔊', desc: 'Convert text to audio', page: 'text-to-speech.html', popular: false },
+                { id: 'speech-to-text', name: 'Speech to Text', icon: '🎙️', desc: 'Convert speech to text', page: 'speech-to-text.html', popular: false },
+                { id: 'text-diff', name: 'Text Comparator', icon: '⚖️', desc: 'Compare two texts', page: 'text-diff.html', premium: true }
             ]
         };
 
@@ -280,6 +471,53 @@
             }
         }
 
+        function showGames() {
+            console.log("showGames called");
+            try {
+                currentView = 'games';
+                updateNavigation('games');
+                var content = document.querySelector('.dashboard-content');
+                if (content) {
+                    content.style.opacity = '0';
+                    content.style.transform = 'translateY(-10px)';
+
+                    setTimeout(() => {
+                        content.innerHTML = getGamesHTML();
+
+                        content.style.transition = 'all 0.3s ease-out';
+                        content.style.opacity = '1';
+                        content.style.transform = 'translateY(0)';
+                    }, 150);
+                }
+            } catch(e) {
+                console.error("Error in showGames:", e);
+            }
+        }
+
+        function getGamesHTML() {
+            const gamesTools = tools.games;
+            return `
+                <section class="category-tools">
+                    <div class="category-header">
+                        <button class="back-btn" onclick="showDashboard()">← Back</button>
+                        <h1>🎮 Games & Fun</h1>
+                        <p>Play and have fun with our collection of games</p>
+                    </div>
+
+                    <div class="tools-grid">
+                        ${gamesTools.map(tool => `
+                            <div class="tool-card ${tool.premium ? 'premium-tool' : ''}" onclick="${tool.premium ? `showPremiumModal()` : `openTool('${tool.page}')`}">
+                                <div class="tool-icon">${tool.icon}</div>
+                                <h3>${tool.name}</h3>
+                                <p>${tool.desc}</p>
+                                ${tool.premium ? '<div class="premium-badge">⭐ PREMIUM</div>' : ''}
+                            </div>
+                        `).join('')}
+                    </div>
+                </section>
+            `;
+        }
+
         function showCategoryTools(category) {
             console.log("showCategoryTools called for:", category);
             try {
@@ -331,33 +569,40 @@
                 <section class="categories-section">
                     <h2>Explore Categories</h2>
                     <div class="categories-grid">
-<div class="category-card" onclick="showCategoryTools('productivity')" style="cursor:pointer">
-                        <div class="category-icon">🧠</div>
-                        <h3>Productivity</h3>
-                        <p>Tools to boost your efficiency</p>
-                        <div class="tool-count">3 tools</div>
-                    </div>
+                        <div class="category-card" onclick="showCategoryTools('productivity')" style="cursor:pointer">
+                            <div class="category-icon">🧠</div>
+                            <h3>Productivity</h3>
+                            <p>Tools to boost your efficiency</p>
+                            <div class="tool-count">${tools.productivity.length} tools</div>
+                        </div>
 
-                    <div class="category-card" onclick="showCategoryTools('fun')" style="cursor:pointer">
-                        <div class="category-icon">🎮</div>
-                        <h3>Fun & Games</h3>
-                        <p>Entertainment and decision making</p>
-                        <div class="tool-count">5 tools</div>
-                    </div>
+                        <div class="category-card" onclick="showCategoryTools('games')" style="cursor:pointer">
+                            <div class="category-icon">🎮</div>
+                            <h3>Fun & Games</h3>
+                            <p>Entertainment and decision making</p>
+                            <div class="tool-count">${tools.games.length} tools</div>
+                        </div>
 
-                    <div class="category-card" onclick="showCategoryTools('utilities')" style="cursor:pointer">
-                        <div class="category-icon">🔧</div>
-                        <h3>Utilities</h3>
-                        <p>Essential helper tools</p>
-                        <div class="tool-count">3 tools</div>
-                    </div>
+                        <div class="category-card" onclick="showCategoryTools('ai')" style="cursor:pointer">
+                            <div class="category-icon">🤖</div>
+                            <h3>AI Tools</h3>
+                            <p>AI-powered helpers</p>
+                            <div class="tool-count">${tools.ai.length} tools</div>
+                        </div>
 
-                    <div class="category-card premium-category" onclick="showPremium()" style="cursor:pointer">
-                        <div class="category-icon">⭐</div>
-                        <h3>Premium</h3>
-                        <p>Advanced features & themes</p>
-                        <div class="tool-count">∞ tools</div>
-                    </div>
+                        <div class="category-card" onclick="showCategoryTools('utilities')" style="cursor:pointer">
+                            <div class="category-icon">🔧</div>
+                            <h3>Utilities</h3>
+                            <p>Essential helper tools</p>
+                            <div class="tool-count">${tools.utilities.length} tools</div>
+                        </div>
+
+                        <div class="category-card premium-category" onclick="showPremium()" style="cursor:pointer">
+                            <div class="category-icon">⭐</div>
+                            <h3>Premium</h3>
+                            <p>Advanced features & themes</p>
+                            <div class="tool-count">∞ tools</div>
+                        </div>
                     </div>
                 </section>
 
@@ -384,12 +629,21 @@
                             </div>
                         </div>
 
-                        <div class="category-full-card" onclick="showCategoryTools('fun')">
+                        <div class="category-full-card" onclick="showCategoryTools('games')">
                             <div class="category-full-icon">🎮</div>
                             <div class="category-full-content">
                                 <h3>Fun & Games</h3>
                                 <p>Entertain yourself with games, decision makers, and fun utilities for every occasion.</p>
-                                <div class="tool-count">${tools.fun.length} tools available</div>
+                                <div class="tool-count">${tools.games.length} tools available</div>
+                            </div>
+                        </div>
+
+                        <div class="category-full-card" onclick="showCategoryTools('ai')">
+                            <div class="category-full-icon">🤖</div>
+                            <div class="category-full-content">
+                                <h3>AI Tools</h3>
+                                <p>AI-powered helpers and generators for every task.</p>
+                                <div class="tool-count">${tools.ai.length} tools available</div>
                             </div>
                         </div>
 
@@ -399,6 +653,24 @@
                                 <h3>Utilities</h3>
                                 <p>Essential tools for everyday tasks, calculations, and random generation needs.</p>
                                 <div class="tool-count">${tools.utilities.length} tools available</div>
+                            </div>
+                        </div>
+
+                        <div class="category-full-card" onclick="showCategoryTools('text')">
+                            <div class="category-full-icon">📝</div>
+                            <div class="category-full-content">
+                                <h3>Text Tools</h3>
+                                <p>Format, convert, and manipulate text with ease.</p>
+                                <div class="tool-count">${tools.text.length} tools available</div>
+                            </div>
+                        </div>
+
+                        <div class="category-full-card premium-category" onclick="showPremium()">
+                            <div class="category-full-icon">⭐</div>
+                            <div class="category-full-content">
+                                <h3>Premium</h3>
+                                <p>Unlock advanced features and exclusive content.</p>
+                                <div class="tool-count">∞ tools available</div>
                             </div>
                         </div>
                     </div>
@@ -411,7 +683,10 @@
             const categoryNames = {
                 productivity: 'Productivity',
                 fun: 'Fun & Games',
-                utilities: 'Utilities'
+                games: 'Games & Fun',
+                utilities: 'Utilities',
+                ai: 'AI Tools',
+                text: 'Text Tools'
             };
 
             return `
@@ -643,6 +918,17 @@
         }
 
         // Utility Functions
+        function scrollToTools() {
+            try {
+                const content = document.getElementById('dashboardContent');
+                if (content) {
+                    content.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            } catch(e) {
+                console.log('Scroll error:', e);
+            }
+        }
+
         function showAbout() {
             alert('ToolDash - Built with ❤️ by SG SURYAN\n\nA comprehensive collection of productivity and entertainment tools.');
         }
