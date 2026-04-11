@@ -21,15 +21,44 @@
 
     <!-- HERO SECTION -->
     <section class="hero">
-        <h1>All-in-One Free Tools 🚀</h1>
-        <p>Simple, fast & useful tools made by me</p>
+        <h1>All-in-One Fun Tools 🚀</h1>
+        <p>Free & premium tools for entertainment and productivity</p>
     </section>
 
-    <!-- TOOLS -->
+    <!-- PREMIUM SECTION -->
+    <section class="premium-section">
+        <div class="premium-card">
+            <h2>⭐ Go Premium</h2>
+            <div class="price">₹19<span>/month</span></div>
+            <ul class="premium-features">
+                <li>🎨 Multiple themes (Dark, Neon, Retro)</li>
+                <li>🔓 Advanced password generator</li>
+                <li>🎯 Unlimited quiz questions</li>
+                <li>🎮 Voice Truth or Dare</li>
+                <li>🎲 Custom dice (up to 100 sides)</li>
+                <li>🎪 Early access to new games</li>
+                <li>💎 Premium-only mini games</li>
+                <li>📱 Ad-free experience</li>
+            </ul>
+            <button class="premium-btn" onclick="alert('Premium subscription coming soon!')">Subscribe Now</button>
+        </div>
+    </section>
+
+    <!-- THEME SELECTOR (PREMIUM FEATURE) -->
+    <div class="theme-selector" id="themeSelector">
+        <h4>🎨 Theme</h4>
+        <div class="theme-buttons">
+            <button class="theme-btn theme-dark-btn active" onclick="setTheme('dark')"></button>
+            <button class="theme-btn theme-neon-btn" onclick="setTheme('neon')"></button>
+            <button class="theme-btn theme-retro-btn" onclick="setTheme('retro')"></button>
+        </div>
+    </div>
+
+    <!-- FREE TOOLS -->
     <div class="container">
         <a href="password.html">
-  <div class="box">🔐 Password Generator</div>
-</a>
+            <div class="box">🔐 Password Generator</div>
+        </a>
 
         <div class="box" onclick="openPage('quiz.html')">
             🧠 Quiz App
@@ -38,32 +67,132 @@
         <div class="box" onclick="openPage('truthdare.html')">
             🎮 Truth or Dare
         </div>
+
+        <div class="box" onclick="openPage('random.html')">
+            🎲 Random Number
+        </div>
+
+        <div class="box" onclick="openPage('coinflip.html')">
+            🪙 Coin Flip
+        </div>
+
+        <div class="box" onclick="openPage('dice.html')">
+            🎯 Dice Roll
+        </div>
+
+        <div class="box" onclick="openPage('rps.html')">
+            ✂️ Rock Paper Scissors
+        </div>
+
+        <div class="box" onclick="openPage('magic8.html')">
+            🔮 Magic 8 Ball
+        </div>
+
+        <div class="box" onclick="openPage('joke.html')">
+            😂 Joke Generator
+        </div>
+
+        <a href="advanced-password.html">
+            <div class="box premium-tool">
+                🔓 <span class="premium-label">PREMIUM</span><br>Advanced Password
+            </div>
+        </a>
+
+        <div class="box premium-tool" onclick="alert('Premium feature! Upgrade to unlock voice Truth or Dare.')">
+            🎤 <span class="premium-label">PREMIUM</span><br>Voice Truth or Dare
+        </div>
+
+        <div class="box premium-tool" onclick="alert('Premium feature! Upgrade to unlock custom dice.')">
+            🎲 <span class="premium-label">PREMIUM</span><br>Custom Dice
+        </div>
     </div>
 
     <script>
         function openPage(page) {
-    window.location.href = page + "?v=" + Date.now();
-}
+            window.location.href = page + "?v=" + Date.now();
+        }
 
-    document.querySelectorAll(".box").forEach(box => {
-  box.addEventListener("click", function(e) {
-    let circle = document.createElement("span");
-    circle.classList.add("ripple");
+        function showPremiumModal() {
+            alert("🎉 Premium Subscription!\n\n₹19/month gets you:\n• Multiple themes\n• Advanced password generator\n• Unlimited quiz questions\n• Voice Truth or Dare\n• Custom dice (up to 100 sides)\n• Early access to new games\n• Ad-free experience\n\nSubscribe now to unlock all premium features!");
+        }
 
-    this.appendChild(circle);
+        document.querySelectorAll(".box").forEach(box => {
+            box.addEventListener("click", function(e) {
+                let circle = document.createElement("span");
+                circle.classList.add("ripple");
 
-    let x = e.clientX - this.offsetLeft;
-    let y = e.clientY - this.offsetTop;
+                this.appendChild(circle);
 
-    circle.style.left = x + "px";
-    circle.style.top = y + "px";
+                let x = e.clientX - this.offsetLeft;
+                let y = e.clientY - this.offsetTop;
 
-    setTimeout(() => {
-      circle.remove();
-    }, 500);
-  });
-});
+                circle.style.left = x + "px";
+                circle.style.top = y + "px";
 
+                setTimeout(() => {
+                    circle.remove();
+                }, 500);
+            });
+        });
+
+        // Premium subscription button
+        document.querySelector('.premium-btn').addEventListener('click', function() {
+            showPremiumModal();
+            // Simulate successful payment
+            setTimeout(() => {
+                if (confirm('🎉 Payment successful! Upgrade to Premium now?')) {
+                    upgradeToPremium();
+                }
+            }, 1000);
+        });
+
+        // Premium tool alerts
+        document.querySelectorAll('.premium-tool').forEach(tool => {
+            if (!tool.closest('a')) { // Only add click handler if not wrapped in link
+                tool.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const toolName = this.textContent.replace('PREMIUM', '').trim();
+                    alert(`🔒 ${toolName} is a Premium Feature!\n\nUpgrade to Premium for ₹19/month to unlock:\n• ${toolName}\n• Multiple themes\n• Advanced tools\n• Early access\n• Ad-free experience`);
+                });
+            }
+        });
+
+        // Theme switching functions
+        function setTheme(theme) {
+            // Remove all theme classes
+            document.body.classList.remove('theme-dark', 'theme-neon', 'theme-retro');
+
+            // Add selected theme
+            document.body.classList.add('theme-' + theme);
+
+            // Update active button
+            document.querySelectorAll('.theme-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelector('.theme-' + theme + '-btn').classList.add('active');
+
+            // Save theme preference (simulated for premium users)
+            localStorage.setItem('selectedTheme', theme);
+        }
+
+        // Check if user is premium (simulated)
+        function checkPremiumStatus() {
+            const isPremium = localStorage.getItem('isPremium') === 'true';
+            if (isPremium) {
+                document.getElementById('themeSelector').classList.add('show');
+                // Load saved theme
+                const savedTheme = localStorage.getItem('selectedTheme') || 'dark';
+                setTheme(savedTheme);
+            }
+        }
+
+        // Simulate premium upgrade
+        function upgradeToPremium() {
+            localStorage.setItem('isPremium', 'true');
+            alert('🎉 Welcome to Premium!\n\nYou now have access to:\n• Multiple themes\n• Advanced tools\n• Premium features\n• Early access\n\nTheme selector is now enabled!');
+            checkPremiumStatus();
+        }
+
+        // Initialize theme selector visibility
+        checkPremiumStatus();
     </script>
 
     <footer>

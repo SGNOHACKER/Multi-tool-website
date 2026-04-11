@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Joke Generator</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .tool-container {
+            max-width: 500px;
+            margin: 60px auto;
+            padding: 40px;
+            background: rgba(30, 41, 59, 0.5);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            border: 1px solid rgba(255,255,255,0.1);
+            animation: slideUp 0.8s ease;
+            text-align: center;
+        }
+
+        @keyframes slideUp {
+            from {
+                transform: translateY(30px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .joke-display {
+            margin: 40px 0;
+            padding: 30px;
+            background: rgba(0,0,0,0.3);
+            border-radius: 15px;
+            min-height: 120px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            line-height: 1.6;
+            color: white;
+            animation: fadeIn 0.6s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .joke-setup {
+            font-size: 20px;
+            margin-bottom: 15px;
+            color: #38bdf8;
+        }
+
+        .joke-punchline {
+            font-size: 18px;
+            font-weight: bold;
+            color: #FFD700;
+            animation: punchline 0.8s ease;
+        }
+
+        @keyframes punchline {
+            0% { transform: scale(0.8); opacity: 0; }
+            50% { transform: scale(1.1); opacity: 0.8; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        .category-selector {
+            margin: 30px 0;
+        }
+
+        .category-selector label {
+            color: #94a3b8;
+            margin-right: 15px;
+        }
+
+        .category-selector select {
+            padding: 10px 15px;
+            border-radius: 8px;
+            border: 1px solid rgba(255,255,255,0.2);
+            background: rgba(0,0,0,0.3);
+            color: white;
+            font-size: 16px;
+        }
+
+        .rating {
+            margin: 20px 0;
+            font-size: 24px;
+        }
+
+        .rating span {
+            cursor: pointer;
+            transition: 0.3s;
+            margin: 0 5px;
+        }
+
+        .rating span:hover {
+            transform: scale(1.2);
+        }
+
+        .rating .active {
+            color: #FFD700;
+        }
+
+        .btn {
+            padding: 15px 30px;
+            border-radius: 10px;
+            border: none;
+            font-size: 16px;
+            cursor: pointer;
+            transition: 0.3s;
+            margin: 5px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #38bdf8, #818cf8);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 30px #38bdf8;
+        }
+
+        .btn-secondary {
+            background: rgba(255,255,255,0.1);
+            color: white;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255,255,255,0.2);
+        }
+
+        .stats {
+            display: flex;
+            justify-content: space-around;
+            margin: 30px 0;
+            padding: 20px;
+            background: rgba(0,0,0,0.3);
+            border-radius: 15px;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 24px;
+            font-weight: bold;
+            color: #38bdf8;
+        }
+
+        .stat-label {
+            font-size: 12px;
+            color: #94a3b8;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 30px;
+            color: #38bdf8;
+            text-decoration: none;
+        }
+
+        .back-link:hover {
+            text-decoration: underline;
+        }
+
+        /* MOBILE RESPONSIVE */
+        @media (max-width: 600px) {
+            .tool-container {
+                width: calc(100% - 40px);
+                padding: 25px 15px;
+                margin: 30px 15px;
+            }
+
+            .joke-display {
+                padding: 20px;
+                font-size: 16px;
+            }
+
+            .joke-setup {
+                font-size: 18px;
+            }
+
+            .joke-punchline {
+                font-size: 16px;
+            }
+
+            .stats {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .btn {
+                width: 100%;
+                max-width: 250px;
+                margin: 8px 4px;
+                font-size: 18px;
+                min-height: 50px;
+            }
+
+            nav {
+                flex-direction: column;
+                gap: 10px;
+                padding: 12px;
+            }
+
+            nav > div {
+                display: flex;
+                gap: 10px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAVBAR -->
+    <nav>
+        <h2>⚡ MultiTool</h2>
+        <div>
+            <a href="index.html">Home</a>
+            <a href="#">Tools</a>
+            <a href="#">About</a>
+        </div>
+    </nav>
+
+    <div class="tool-container">
+        <h1>😂 Joke Generator</h1>
+        <p class="subtitle">Get a fresh joke every time!</p>
+
+        <div class="category-selector">
+            <label for="category">Category:</label>
+            <select id="category">
+                <option value="all">All Jokes</option>
+                <option value="programming">Programming</option>
+                <option value="general">General</option>
+                <option value="dad">Dad Jokes</option>
+                <option value="pun">Puns</option>
+            </select>
+        </div>
+
+        <div class="joke-display" id="jokeDisplay">
+            <div>Click "Get Joke" to start laughing! 😂</div>
+        </div>
+
+        <div class="rating" id="rating">
+            <span onclick="rateJoke(1)">😞</span>
+            <span onclick="rateJoke(2)">😐</span>
+            <span onclick="rateJoke(3)">😊</span>
+            <span onclick="rateJoke(4)">😄</span>
+            <span onclick="rateJoke(5)">🤣</span>
+        </div>
+
+        <div class="stats">
+            <div class="stat">
+                <div class="stat-number" id="jokesGenerated">0</div>
+                <div class="stat-label">Jokes Generated</div>
+            </div>
+            <div class="stat">
+                <div class="stat-number" id="avgRating">0</div>
+                <div class="stat-label">Avg Rating</div>
+            </div>
+        </div>
+
+        <button class="btn btn-primary" onclick="getJoke()">😂 Get Joke</button>
+        <button class="btn btn-secondary" onclick="resetStats()">🔄 Reset Stats</button>
+
+        <br><br>
+        <a href="index.html" class="back-link">← Back to Home</a>
+    </div>
+
+    <script>
+        const jokes = {
+            programming: [
+                { setup: "Why do programmers prefer dark mode?", punchline: "Because light attracts bugs!" },
+                { setup: "What's a programmer's favorite hangout spot?", punchline: "Foo Bar!" },
+                { setup: "Why did the programmer quit his job?", punchline: "Because he didn't get arrays!" },
+                { setup: "What's the object-oriented way to become wealthy?", punchline: "Inheritance!" },
+                { setup: "Why do Java developers wear glasses?", punchline: "Because they can't C#!" }
+            ],
+            general: [
+                { setup: "Why don't scientists trust atoms?", punchline: "Because they make up everything!" },
+                { setup: "What do you call fake spaghetti?", punchline: "An impasta!" },
+                { setup: "Why did the scarecrow win an award?", punchline: "Because he was outstanding in his field!" },
+                { setup: "What do you call a belt made of watches?", punchline: "A waist of time!" },
+                { setup: "Why don't eggs tell jokes?", punchline: "They'd crack each other up!" }
+            ],
+            dad: [
+                { setup: "What do you call a fish wearing a bowtie?", punchline: "Sofishticated!" },
+                { setup: "Why did the math book look sad?", punchline: "Because it had too many problems!" },
+                { setup: "What did the grape say when it got stepped on?", punchline: "Nothing, it just let out a little wine!" },
+                { setup: "Why can't you give Elsa a balloon?", punchline: "Because she will let it go!" },
+                { setup: "What do you call a bear with no teeth?", punchline: "A gummy bear!" }
+            ],
+            pun: [
+                { setup: "I told my wife she was drawing her eyebrows too high.", punchline: "She looked surprised!" },
+                { setup: "I'm reading a book on anti-gravity.", punchline: "It's impossible to put down!" },
+                { setup: "Did you hear about the restaurant on the moon?", punchline: "Great food, no atmosphere!" },
+                { setup: "Time flies like an arrow.", punchline: "Fruit flies like a banana!" },
+                { setup: "I'm on a seafood diet.", punchline: "I see food and I eat it!" }
+            ]
+        };
+
+        let jokesGenerated = 0;
+        let totalRating = 0;
+        let currentRating = 0;
+
+        function getJoke() {
+            const category = document.getElementById("category").value;
+            const jokeDisplay = document.getElementById("jokeDisplay");
+
+            let jokeList;
+            if (category === "all") {
+                // Combine all categories
+                jokeList = Object.values(jokes).flat();
+            } else {
+                jokeList = jokes[category];
+            }
+
+            const randomJoke = jokeList[Math.floor(Math.random() * jokeList.length)];
+
+            jokeDisplay.innerHTML = `
+                <div class="joke-setup">${randomJoke.setup}</div>
+                <div class="joke-punchline">${randomJoke.punchline}</div>
+            `;
+
+            jokesGenerated++;
+            currentRating = 0;
+            updateRatingDisplay();
+            updateStats();
+        }
+
+        function rateJoke(rating) {
+            currentRating = rating;
+            totalRating += rating;
+            updateRatingDisplay();
+        }
+
+        function updateRatingDisplay() {
+            const ratingSpans = document.querySelectorAll("#rating span");
+            ratingSpans.forEach((span, index) => {
+                if (index < currentRating) {
+                    span.classList.add("active");
+                } else {
+                    span.classList.remove("active");
+                }
+            });
+        }
+
+        function updateStats() {
+            document.getElementById("jokesGenerated").textContent = jokesGenerated;
+            const avgRating = jokesGenerated > 0 ? (totalRating / jokesGenerated).toFixed(1) : 0;
+            document.getElementById("avgRating").textContent = avgRating;
+        }
+
+        function resetStats() {
+            jokesGenerated = 0;
+            totalRating = 0;
+            currentRating = 0;
+            updateRatingDisplay();
+            updateStats();
+            document.getElementById("jokeDisplay").innerHTML = '<div>Click "Get Joke" to start laughing! 😂</div>';
+        }
+    </script>
+
+    <footer>
+        <p>Made by me 😎 | More tools coming soon</p>
+    </footer>
+
+</body>
+</html>

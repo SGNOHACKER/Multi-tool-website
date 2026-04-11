@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Magic 8 Ball</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .tool-container {
+            max-width: 500px;
+            margin: 60px auto;
+            padding: 40px;
+            background: rgba(30, 41, 59, 0.5);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            border: 1px solid rgba(255,255,255,0.1);
+            animation: slideUp 0.8s ease;
+            text-align: center;
+        }
+
+        @keyframes slideUp {
+            from {
+                transform: translateY(30px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .magic-ball {
+            width: 250px;
+            height: 250px;
+            background: radial-gradient(circle at 30% 30%, #000, #111);
+            border-radius: 50%;
+            border: 6px solid #000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 40px auto;
+            position: relative;
+            box-shadow: 0 0 40px rgba(0,0,0,0.9), inset 0 0 20px rgba(255,255,255,0.05);
+            animation: float 4s ease-in-out infinite;
+            cursor: pointer;
+        }
+
+        .magic-ball::before {
+            content: "";
+            position: absolute;
+            top: 25px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 70px;
+            height: 70px;
+            background: rgba(255,255,255,0.08);
+            border-radius: 50%;
+            border: 3px solid rgba(255,255,255,0.2);
+            box-shadow: inset 0 0 10px rgba(255,255,255,0.1);
+        }
+
+        .magic-ball::after {
+            content: "";
+            position: absolute;
+            top: 35px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, rgba(255,255,255,0.9), rgba(200,200,255,0.8));
+            clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            box-shadow: 0 0 15px rgba(255,255,255,0.6);
+        }
+
+        .magic-ball.showing-answer::after {
+            opacity: 1;
+        }
+
+        .ball-window {
+            position: absolute;
+            top: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 45px;
+            height: 45px;
+            background: rgba(255,255,255,0.95);
+            clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: inset 0 0 5px rgba(0,0,0,0.3);
+            z-index: 3;
+        }
+
+        .ball-content {
+            position: absolute;
+            top: 45px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 40px;
+            height: 30px;
+            font-size: 9px;
+            font-weight: bold;
+            color: #000;
+            text-align: center;
+            line-height: 1.2;
+            z-index: 4;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-shadow: none;
+        }
+
+        .ball-content.showing {
+            opacity: 1;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.8); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .shaking {
+            animation: shake 0.5s ease-in-out;
+        }
+
+        @keyframes shake {
+            0%, 100% {
+                transform: translateX(0) rotate(0deg);
+            }
+            10% {
+                transform: translateX(-8px) rotate(-2deg);
+            }
+            20% {
+                transform: translateX(8px) rotate(2deg);
+            }
+            30% {
+                transform: translateX(-6px) rotate(-1deg);
+            }
+            40% {
+                transform: translateX(6px) rotate(1deg);
+            }
+            50% {
+                transform: translateX(-4px) rotate(-0.5deg);
+            }
+            60% {
+                transform: translateX(4px) rotate(0.5deg);
+            }
+            70% {
+                transform: translateX(-2px) rotate(-0.2deg);
+            }
+            80% {
+                transform: translateX(2px) rotate(0.2deg);
+            }
+            90% {
+                transform: translateX(-1px) rotate(-0.1deg);
+            }
+        }
+
+        .answer-display {
+            margin: 30px 0;
+            padding: 25px;
+            background: rgba(0,0,0,0.4);
+            border-radius: 15px;
+            min-height: 80px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid rgba(255,255,255,0.1);
+        }
+
+        .answer-text {
+            font-size: 18px;
+            font-weight: bold;
+            color: #38bdf8;
+            text-align: center;
+            margin-bottom: 10px;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .answer-category {
+            font-size: 14px;
+            color: #94a3b8;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            opacity: 0.8;
+        }
+
+        .thinking {
+            animation: pulse 1s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.6; }
+            50% { opacity: 1; }
+        }
+
+        .input-group {
+            margin: 30px 0;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 15px;
+            border-radius: 10px;
+            border: 1px solid rgba(255,255,255,0.2);
+            background: rgba(0,0,0,0.3);
+            color: white;
+            font-size: 16px;
+            text-align: center;
+        }
+
+        .input-group input::placeholder {
+            color: #94a3b8;
+        }
+
+        .input-hint {
+            font-size: 12px;
+            color: #94a3b8;
+            margin-top: 5px;
+            font-style: italic;
+            opacity: 0.7;
+        }
+
+        .quick-questions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 10px;
+            justify-content: center;
+        }
+
+        .quick-q {
+            background: rgba(56, 189, 248, 0.1);
+            color: #38bdf8;
+            padding: 6px 12px;
+            border-radius: 15px;
+            font-size: 12px;
+            cursor: pointer;
+            border: 1px solid rgba(56, 189, 248, 0.3);
+            transition: 0.3s;
+        }
+
+        .quick-q:hover {
+            background: rgba(56, 189, 248, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin: 25px 0;
+        }
+
+        .btn {
+            padding: 15px 30px;
+            border-radius: 10px;
+            border: none;
+            font-size: 16px;
+            cursor: pointer;
+            transition: 0.3s;
+            margin: 5px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #38bdf8, #818cf8);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 30px #38bdf8;
+        }
+
+        .btn-secondary {
+            background: rgba(255,255,255,0.1);
+            color: white;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255,255,255,0.2);
+        }
+
+        .history {
+            margin-top: 30px;
+            padding: 20px;
+            background: rgba(0,0,0,0.3);
+            border-radius: 15px;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+
+        .history h4 {
+            margin: 0 0 15px 0;
+            color: #38bdf8;
+        }
+
+        .history-item {
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            font-size: 14px;
+            color: #94a3b8;
+            transition: background 0.3s ease;
+        }
+
+        .history-item:hover {
+            background: rgba(255,255,255,0.05);
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 30px;
+            color: #38bdf8;
+            text-decoration: none;
+        }
+
+        .back-link:hover {
+            text-decoration: underline;
+        }
+
+        /* MOBILE RESPONSIVE */
+        @media (max-width: 600px) {
+            .tool-container {
+                width: calc(100% - 40px);
+                padding: 25px 15px;
+                margin: 30px 15px;
+            }
+
+            .magic-ball {
+                width: 200px;
+                height: 200px;
+            }
+
+            .ball-window {
+                width: 35px;
+                height: 35px;
+            }
+
+            .ball-content {
+                width: 30px;
+                height: 25px;
+                font-size: 7px;
+            }
+
+            .answer-display {
+                padding: 20px;
+            }
+
+            .answer-text {
+                font-size: 16px;
+            }
+
+            .input-group input {
+                font-size: 18px;
+                padding: 12px;
+            }
+
+            .input-hint {
+                font-size: 11px;
+            }
+
+            .quick-questions {
+                gap: 6px;
+            }
+
+            .quick-q {
+                padding: 5px 10px;
+                font-size: 11px;
+            }
+
+            .action-buttons {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .btn {
+                width: 100%;
+                max-width: 280px;
+                margin: 8px 4px;
+                font-size: 18px;
+                min-height: 50px;
+            }
+
+            nav {
+                flex-direction: column;
+                gap: 10px;
+                padding: 12px;
+            }
+
+            nav > div {
+                display: flex;
+                gap: 10px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAVBAR -->
+    <nav>
+        <h2>⚡ MultiTool</h2>
+        <div>
+            <a href="index.html">Home</a>
+            <a href="#">Tools</a>
+            <a href="#">About</a>
+        </div>
+    </nav>
+
+    <div class="tool-container">
+        <h1>🔮 Magic 8 Ball</h1>
+        <p class="subtitle">Ask a question and let the magic decide!</p>
+
+        <div class="input-group">
+            <input type="text" id="question" placeholder="Will I get rich?" maxlength="100" autocomplete="off">
+            <div class="input-hint">💡 Try questions like: "Should I ask her out?" or "Will it rain tomorrow?"</div>
+            <div class="quick-questions">
+                <span class="quick-q" onclick="setQuestion('Will I find love?')">💕 Love</span>
+                <span class="quick-q" onclick="setQuestion('Will I get rich?')">💰 Money</span>
+                <span class="quick-q" onclick="setQuestion('Will I succeed?')">🎯 Success</span>
+                <span class="quick-q" onclick="setQuestion('Should I take the risk?')">🎲 Risk</span>
+            </div>
+        </div>
+
+        <div class="magic-ball" id="ball">
+            <div class="ball-window">
+                <div class="ball-content" id="ballAnswer">8</div>
+            </div>
+        </div>
+
+        <div class="answer-display" id="answerDisplay">
+            <div class="answer-text" id="answerText">Click the ball or press Enter to get your answer!</div>
+            <div class="answer-category" id="answerCategory"></div>
+        </div>
+
+        <div class="action-buttons">
+            <button class="btn btn-primary" onclick="shakeBall()">🔮 Shake the Ball</button>
+            <button class="btn btn-secondary" onclick="clearHistory()">🗑️ Clear History</button>
+        </div>
+
+        <div class="history">
+            <h4>Recent Questions</h4>
+            <div id="historyList">No questions asked yet...</div>
+        </div>
+
+        <br><br>
+        <a href="index.html" class="back-link">← Back to Home</a>
+    </div>
+
+    <script>
+        const answers = {
+            positive: [
+                "Yes, definitely!",
+                "It is certain.",
+                "Without a doubt.",
+                "Yes - definitely.",
+                "You may rely on it.",
+                "As I see it, yes.",
+                "Most likely.",
+                "Outlook good.",
+                "Yes.",
+                "Signs point to yes.",
+                "Absolutely!",
+                "Definitely yes!",
+                "For sure!",
+                "No doubt about it!"
+            ],
+            neutral: [
+                "Reply hazy, try again.",
+                "Ask again later.",
+                "Better not tell you now.",
+                "Cannot predict now.",
+                "Concentrate and ask again.",
+                "Maybe...",
+                "It's possible.",
+                "The stars are unclear.",
+                "Not sure right now.",
+                "Ask me again later."
+            ],
+            negative: [
+                "Don't count on it.",
+                "My reply is no.",
+                "My sources say no.",
+                "Outlook not so good.",
+                "Very doubtful.",
+                "No way!",
+                "Absolutely not!",
+                "Definitely not!",
+                "Not in this lifetime!",
+                "Forget about it!"
+            ]
+        };
+
+        let history = [];
+        let isShaking = false;
+
+        function shakeBall() {
+            if (isShaking) return; // Prevent multiple shakes
+
+            const question = document.getElementById("question").value.trim();
+            const ball = document.getElementById("ball");
+            const ballAnswer = document.getElementById("ballAnswer");
+            const answerText = document.getElementById("answerText");
+            const answerCategory = document.getElementById("answerCategory");
+
+            if (!question) {
+                showMessage("Please ask a question first!");
+                return;
+            }
+
+            if (question.length < 3) {
+                showMessage("Please ask a more meaningful question!");
+                return;
+            }
+
+            isShaking = true;
+
+            // Reset states
+            ball.classList.remove("showing-answer");
+            ballAnswer.classList.remove("showing");
+            answerText.classList.remove("thinking");
+
+            // Start shaking animation
+            ball.classList.add("shaking");
+            ballAnswer.textContent = "8";
+            answerText.textContent = "The ball is shaking...";
+            answerCategory.textContent = "";
+
+            // Shake duration
+            setTimeout(() => {
+                ball.classList.remove("shaking");
+
+                // Show thinking phase
+                answerText.textContent = "Consulting the spirits...";
+                answerText.classList.add("thinking");
+
+                setTimeout(() => {
+                    // Get contextual answer
+                    const answerData = getContextualAnswer(question);
+                    revealAnswer(answerData);
+                }, 1500);
+
+            }, 1200);
+        }
+
+        function getContextualAnswer(question) {
+            const lowerQuestion = question.toLowerCase();
+            let category = "neutral"; // Default
+
+            // Analyze question for context
+            if (lowerQuestion.includes("should") || lowerQuestion.includes("can") ||
+                lowerQuestion.includes("will") || lowerQuestion.includes("is") ||
+                lowerQuestion.includes("are") || lowerQuestion.includes("do") ||
+                lowerQuestion.includes("does") || lowerQuestion.includes("am")) {
+
+                // For yes/no questions, randomize with slight bias
+                const rand = Math.random();
+                if (rand < 0.4) category = "positive";
+                else if (rand < 0.7) category = "negative";
+                else category = "neutral";
+
+            } else {
+                // For other questions, mostly neutral
+                category = Math.random() < 0.2 ? "positive" : "neutral";
+            }
+
+            // Special cases
+            if (lowerQuestion.includes("love") || lowerQuestion.includes("marry") ||
+                lowerQuestion.includes("rich") || lowerQuestion.includes("famous")) {
+                category = Math.random() < 0.6 ? "positive" : "negative";
+            }
+
+            const answerList = answers[category];
+            const answer = answerList[Math.floor(Math.random() * answerList.length)];
+
+            return {
+                text: answer,
+                category: category,
+                emoji: getCategoryEmoji(category)
+            };
+        }
+
+        function getCategoryEmoji(category) {
+            switch(category) {
+                case "positive": return "✨";
+                case "negative": return "😔";
+                case "neutral": return "🤔";
+                default: return "🔮";
+            }
+        }
+
+        function revealAnswer(answerData) {
+            const ball = document.getElementById("ball");
+            const ballAnswer = document.getElementById("ballAnswer");
+            const answerText = document.getElementById("answerText");
+            const answerCategory = document.getElementById("answerCategory");
+
+            // Show the triangular window
+            ball.classList.add("showing-answer");
+
+            // Type out the answer letter by letter
+            let index = 0;
+            const text = answerData.text;
+            ballAnswer.textContent = "";
+
+            const typeInterval = setInterval(() => {
+                if (index < text.length) {
+                    ballAnswer.textContent += text[index];
+                    index++;
+                } else {
+                    clearInterval(typeInterval);
+                    ballAnswer.classList.add("showing");
+
+                    // Update display text
+                    answerText.classList.remove("thinking");
+                    answerText.textContent = text;
+                    answerCategory.textContent = `${answerData.emoji} ${answerData.category.charAt(0).toUpperCase() + answerData.category.slice(1)} Answer`;
+
+                    // Add to history
+                    addToHistory(document.getElementById("question").value.trim(), text, answerData.category);
+
+                    // Clear input
+                    document.getElementById("question").value = "";
+
+                    // Reset shaking flag
+                    isShaking = false;
+                }
+            }, 80);
+        }
+
+        function showMessage(message) {
+            const answerText = document.getElementById("answerText");
+            answerText.textContent = message;
+            answerText.style.color = "#ff6b6b";
+
+            setTimeout(() => {
+                answerText.style.color = "#38bdf8";
+                answerText.textContent = "Ask a question and shake the ball!";
+            }, 3000);
+        }
+
+        function addToHistory(question, answer, category) {
+            const emoji = getCategoryEmoji(category);
+            history.unshift({
+                question,
+                answer,
+                category: category.charAt(0).toUpperCase() + category.slice(1),
+                emoji,
+                time: new Date().toLocaleTimeString()
+            });
+
+            // Keep only last 10 items
+            if (history.length > 10) {
+                history.pop();
+            }
+
+            updateHistoryDisplay();
+        }
+
+        function updateHistoryDisplay() {
+            const historyList = document.getElementById("historyList");
+
+            if (history.length === 0) {
+                historyList.innerHTML = "No questions asked yet...";
+                return;
+            }
+
+            historyList.innerHTML = history.map(item =>
+                `<div class="history-item">
+                    <strong>${item.question}</strong><br>
+                    <em>${item.emoji} ${item.answer}</em> <small>(${item.category} • ${item.time})</small>
+                </div>`
+            ).join("");
+        }
+
+        function clearHistory() {
+            history = [];
+            updateHistoryDisplay();
+            document.getElementById("answerText").textContent = "Ask a question and shake the ball!";
+            document.getElementById("answerCategory").textContent = "";
+        }
+
+        function setQuestion(question) {
+            document.getElementById("question").value = question;
+            // Auto-focus and shake after a brief delay
+            setTimeout(() => {
+                shakeBall();
+            }, 300);
+        }
+
+        // Allow shaking by clicking the ball
+        document.getElementById("ball").addEventListener("click", shakeBall);
+
+        // Allow shaking by pressing Enter in input
+        document.getElementById("question").addEventListener("keypress", function(e) {
+            if (e.key === "Enter") {
+                shakeBall();
+            }
+        });
+    </script>
+
+    <footer>
+        <p>Made by me 😎 | More tools coming soon</p>
+    </footer>
+
+</body>
+</html>

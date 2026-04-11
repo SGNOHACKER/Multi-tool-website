@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Dice Roll</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .tool-container {
+            max-width: 500px;
+            margin: 60px auto;
+            padding: 40px;
+            background: rgba(30, 41, 59, 0.5);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            border: 1px solid rgba(255,255,255,0.1);
+            animation: slideUp 0.8s ease;
+            text-align: center;
+        }
+
+        @keyframes slideUp {
+            from {
+                transform: translateY(30px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .dice-container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin: 40px 0;
+        }
+
+        .dice {
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(135deg, #ffffff, #f0f0f0);
+            border-radius: 15px;
+            border: 3px solid #333;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 48px;
+            font-weight: bold;
+            color: #333;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+            transition: transform 0.3s, box-shadow 0.3s;
+            animation: roll 1s ease-in-out;
+        }
+
+        .dice:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 24px rgba(0,0,0,0.4);
+        }
+
+        @keyframes roll {
+            0% { transform: rotate(0deg) scale(1); }
+            25% { transform: rotate(90deg) scale(1.1); }
+            50% { transform: rotate(180deg) scale(0.9); }
+            75% { transform: rotate(270deg) scale(1.05); }
+            100% { transform: rotate(360deg) scale(1); }
+        }
+
+        .result {
+            font-size: 24px;
+            color: #38bdf8;
+            margin: 20px 0;
+            font-weight: bold;
+        }
+
+        .input-group {
+            margin: 20px 0;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 10px;
+            color: #94a3b8;
+        }
+
+        .input-row {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .input-group input {
+            padding: 15px;
+            border-radius: 10px;
+            border: 1px solid rgba(255,255,255,0.2);
+            background: rgba(0,0,0,0.3);
+            color: white;
+            font-size: 18px;
+            width: 100%;
+            text-align: center;
+        }
+
+        .btn {
+            padding: 15px 30px;
+            border-radius: 10px;
+            border: none;
+            font-size: 16px;
+            cursor: pointer;
+            transition: 0.3s;
+            margin: 5px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #38bdf8, #818cf8);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 30px #38bdf8;
+        }
+
+        .btn-secondary {
+            background: rgba(255,255,255,0.1);
+            color: white;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255,255,255,0.2);
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 30px;
+            color: #38bdf8;
+            text-decoration: none;
+        }
+
+        .back-link:hover {
+            text-decoration: underline;
+        }
+
+        /* MOBILE RESPONSIVE */
+        @media (max-width: 600px) {
+            .tool-container {
+                width: calc(100% - 40px);
+                padding: 25px 15px;
+                margin: 30px 15px;
+            }
+
+            .dice-container {
+                gap: 15px;
+            }
+
+            .dice {
+                width: 80px;
+                height: 80px;
+                font-size: 36px;
+            }
+
+            .input-row {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .input-group input {
+                width: 100%;
+                font-size: 20px;
+                padding: 12px;
+            }
+
+            .btn {
+                width: 100%;
+                max-width: 250px;
+                margin: 8px 4px;
+                font-size: 18px;
+                min-height: 50px;
+            }
+
+            nav {
+                flex-direction: column;
+                gap: 10px;
+                padding: 12px;
+            }
+
+            nav > div {
+                display: flex;
+                gap: 10px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAVBAR -->
+    <nav>
+        <h2>⚡ MultiTool</h2>
+        <div>
+            <a href="index.html">Home</a>
+            <a href="#">Tools</a>
+            <a href="#">About</a>
+        </div>
+    </nav>
+
+    <div class="tool-container">
+        <h1>🎯 Dice Roll</h1>
+        <p class="subtitle">Roll dice for games, decisions, or just for fun!</p>
+
+        <div class="input-row">
+            <div class="input-group">
+                <label>Number of Dice</label>
+                <input type="number" id="diceCount" value="1" min="1" max="6">
+            </div>
+            <div class="input-group">
+                <label>Sides per Die</label>
+                <input type="number" id="sides" value="6" min="2" max="20">
+            </div>
+        </div>
+
+        <div class="dice-container" id="diceContainer">
+            <div class="dice">🎲</div>
+        </div>
+
+        <div class="result" id="result">Click to roll!</div>
+
+        <button class="btn btn-primary" onclick="rollDice()">🎲 Roll Dice</button>
+        <button class="btn btn-secondary" onclick="resetDice()">🔄 Reset</button>
+
+        <br><br>
+        <a href="index.html" class="back-link">← Back to Home</a>
+    </div>
+
+    <script>
+        function rollDice() {
+            const diceCount = parseInt(document.getElementById("diceCount").value);
+            const sides = parseInt(document.getElementById("sides").value);
+            const diceContainer = document.getElementById("diceContainer");
+            const result = document.getElementById("result");
+
+            if (diceCount < 1 || diceCount > 6) {
+                alert("Please enter a valid number of dice (1-6)");
+                return;
+            }
+
+            if (sides < 2 || sides > 20) {
+                alert("Please enter valid sides (2-20)");
+                return;
+            }
+
+            // Clear existing dice
+            diceContainer.innerHTML = "";
+
+            let total = 0;
+            let results = [];
+
+            // Create dice elements
+            for (let i = 0; i < diceCount; i++) {
+                const dice = document.createElement("div");
+                dice.className = "dice";
+                diceContainer.appendChild(dice);
+
+                // Roll animation
+                setTimeout(() => {
+                    const roll = Math.floor(Math.random() * sides) + 1;
+                    dice.textContent = roll;
+                    total += roll;
+                    results.push(roll);
+
+                    if (i === diceCount - 1) {
+                        // All dice rolled, show result
+                        if (diceCount === 1) {
+                            result.textContent = `You rolled: ${total}`;
+                        } else {
+                            result.textContent = `You rolled: ${results.join(" + ")} = ${total}`;
+                        }
+                    }
+                }, i * 200);
+            }
+        }
+
+        function resetDice() {
+            const diceContainer = document.getElementById("diceContainer");
+            diceContainer.innerHTML = '<div class="dice">🎲</div>';
+            document.getElementById("result").textContent = "Click to roll!";
+        }
+    </script>
+
+    <footer>
+        <p>Made by me 😎 | More tools coming soon</p>
+    </footer>
+
+</body>
+</html>
